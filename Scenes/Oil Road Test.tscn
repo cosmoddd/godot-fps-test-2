@@ -1,0 +1,112 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://materials/club tiles/Oil Asphalt - Oily Road/oil asphalt.tres" type="Material" id=1]
+[ext_resource path="res://Scripts/KinematicBodyMover.gd" type="Script" id=2]
+[ext_resource path="res://Scripts/RayCastToMove.gd" type="Script" id=3]
+[ext_resource path="res://Scripts/Raycassst.gd" type="Script" id=4]
+[ext_resource path="res://Scripts/DrawSimpleLine.gd" type="Script" id=5]
+
+[sub_resource type="SphereMesh" id=1]
+
+[sub_resource type="SphereShape" id=2]
+
+[sub_resource type="Environment" id=3]
+
+[sub_resource type="NavigationMesh" id=4]
+vertices = PoolVector3Array( -0.1636, 0.431378, -10.3636, -10.3636, 0.431378, -10.3636, -10.3636, 0.431378, -0.1636, -0.1636, 0.431378, 10.3364, 10.3364, 0.431378, 10.3364, 10.3364, 0.431378, -0.1636, -10.3636, 0.431378, -0.1636, -10.3636, 0.431378, 10.3364, -0.1636, 0.431378, 10.3364, 10.3364, 0.431378, -0.1636, 10.3364, 0.431378, -10.3636, -0.1636, 0.431378, -10.3636 )
+polygons = [ PoolIntArray( 5, 4, 0 ), PoolIntArray( 0, 4, 3 ), PoolIntArray( 0, 3, 2 ), PoolIntArray( 0, 2, 1 ), PoolIntArray( 8, 7, 6 ), PoolIntArray( 11, 10, 9 ) ]
+agent/height = 1.4
+
+[sub_resource type="CubeMesh" id=5]
+
+[sub_resource type="BoxShape" id=6]
+
+[sub_resource type="CapsuleMesh" id=7]
+
+[sub_resource type="CapsuleMesh" id=8]
+
+[sub_resource type="SpatialMaterial" id=9]
+albedo_color = Color( 0, 0.552941, 0.968627, 1 )
+
+[node name="Root" type="Spatial"]
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 1.89942, 0, 0, 0, 1.89942, 0, 0, 0, 1.89942, -1.62971, 4.82545, -5.04341 )
+visible = false
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="KinematicBody" type="KinematicBody" parent="MeshInstance"]
+visible = false
+
+[node name="CollisionShape" type="CollisionShape" parent="MeshInstance/KinematicBody"]
+transform = Transform( 1, -3.72529e-09, -3.72529e-09, 1.11759e-08, 1, 0, -3.72529e-09, -8.9407e-08, 1, 0, 0, 0 )
+visible = false
+shape = SubResource( 2 )
+
+[node name="FunkyCamera" type="Camera" parent="."]
+transform = Transform( -0.923853, -0.0958247, 0.370558, 0, 0.968153, 0.25036, -0.382747, 0.231296, -0.894431, 2.47739, 4.6529, -1.04533 )
+visible = false
+script = ExtResource( 3 )
+
+[node name="OmniLight" type="OmniLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.74593, 2.55796, 3.00302 )
+light_color = Color( 0.686275, 0.596078, 0.00392157, 1 )
+omni_range = 20.8506
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 3 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.850994, 0.525175, 0, -0.525175, 0.850994, 0, 13.2142, 11.803 )
+
+[node name="Navigation" type="Navigation" parent="."]
+
+[node name="NavigationMeshInstance" type="NavigationMeshInstance" parent="Navigation"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.015, 0, 0.022 )
+navmesh = SubResource( 4 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Navigation/NavigationMeshInstance"]
+transform = Transform( 10.9636, 0, 0, 0, 1, 0, 0, 0, 10.9636, -0.0203648, -0.0186901, -0.00438404 )
+mesh = SubResource( 5 )
+material/0 = ExtResource( 1 )
+
+[node name="StaticBody" type="StaticBody" parent="Navigation/NavigationMeshInstance/MeshInstance"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Navigation/NavigationMeshInstance/MeshInstance/StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00163933, 0, -0.00248935 )
+shape = SubResource( 6 )
+
+[node name="KinematicBody" type="KinematicBody" parent="Navigation"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.19309, 0 )
+visible = false
+script = ExtResource( 2 )
+move_speed = 20
+
+[node name="MeshInstance" type="MeshInstance" parent="Navigation/KinematicBody"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0 )
+visible = false
+mesh = SubResource( 7 )
+material/0 = null
+
+[node name="Node" type="Node" parent="."]
+
+[node name="Ray Capsule" type="MeshInstance" parent="Node"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.327837, 3.85007, 2.53149 )
+mesh = SubResource( 8 )
+material/0 = null
+script = ExtResource( 4 )
+rayCast = NodePath("../Ray Capsule/RayCassst")
+rotationSpeed = 0.03
+
+[node name="RayCassst" type="RayCast" parent="Node/Ray Capsule"]
+enabled = true
+cast_to = Vector3( 0, -4, 0 )
+collide_with_areas = true
+
+[node name="ImmediateGeometry" type="ImmediateGeometry" parent="Node/Ray Capsule"]
+material_override = SubResource( 9 )
+cast_shadow = 0
+script = ExtResource( 5 )
+distance = 3.869
+thisColor = Color( 0.949219, 0, 0, 1 )

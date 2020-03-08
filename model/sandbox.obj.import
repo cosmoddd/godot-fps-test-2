@@ -1,0 +1,18 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/sandbox.obj-2c963765c411f366da5a966c65c22c7e.mesh"
+
+[deps]
+
+files=[ "res://.import/sandbox.obj-2c963765c411f366da5a966c65c22c7e.mesh" ]
+
+source_file="res://model/sandbox.obj"
+dest_files=[ "res://.import/sandbox.obj-2c963765c411f366da5a966c65c22c7e.mesh", "res://.import/sandbox.obj-2c963765c411f366da5a966c65c22c7e.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+optimize_mesh=true

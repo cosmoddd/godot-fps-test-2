@@ -1,0 +1,22 @@
+[gd_scene format=2]
+
+[node name="Node" type="Node"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="LineEdit" type="LineEdit" parent="CanvasLayer"]
+margin_left = 13.4397
+margin_top = 65.4082
+margin_right = 156.44
+margin_bottom = 157.408
+text = "The fuck?"
+align = 1
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+margin_left = 16.7503
+margin_top = 9.0892
+margin_right = 241.75
+margin_bottom = 105.089
+custom_colors/font_color = Color( 0, 1, 0.25098, 1 )
+text = "Yo YO YO what is going on
+Why no!"
