@@ -10,7 +10,10 @@ height = 2.0
 [node name="Player" type="KinematicBody"]
 input_ray_pickable = false
 script = ExtResource( 1 )
+GRAVITY = -39.2
 MAX_SLOPE_ANGLE = 60
+DEACCELFAST = 15
+jumpSpeed = 25
 
 [node name="collision_body" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 0, 0 )
