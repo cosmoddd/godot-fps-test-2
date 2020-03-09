@@ -20,3 +20,4 @@ func _hovering(thing):
 		
 func _notHovering():
 		$".".texture = firstTexture
+
