@@ -112,6 +112,17 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="PlayerDude" parent="." instance=ExtResource( 2 )]
+transform = Transform( -0.99921, 1.26128e-05, -0.039749, 9.01744e-06, 1, 9.087e-05, 0.039749, 9.04411e-05, -0.99921, 7.18996, 3.83133, 1.02864 )
+collision/safe_margin = 0.5
+GRAVITY = -29.4
+GRAVITYMAX = -29
+MAX_SLOPE_ANGLE = 50
+MAX_SPEED = 5
+DEACCELFAST = 80
+jumpSpeed = 10
+MOUSE_SENSITIVITY = 0.12
+
 [node name="OmniLight" type="OmniLight" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.80666, 2.26315, 0 )
 visible = false
@@ -406,15 +417,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13.4709, -2.13875, -12.5377 )
 
 [node name="Point B" type="Spatial" parent="Elevator2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13.4709, 3.11803, -12.5377 )
-
-[node name="PlayerDude" parent="." instance=ExtResource( 2 )]
-transform = Transform( -0.99921, 1.26128e-05, -0.039749, 9.01744e-06, 1, 9.087e-05, 0.039749, 9.04411e-05, -0.99921, 7.18996, 3.83133, 1.02864 )
-collision/safe_margin = 0.5
-GRAVITY = -29.4
-MAX_SLOPE_ANGLE = 50
-MAX_SPEED = 5
-DEACCELFAST = 40
-jumpSpeed = 10
 [connection signal="body_entered" from="Respawn" to="Respawn" method="_on_Respawn_body_entered"]
 [connection signal="body_entered" from="Level Load" to="Level Load" method="_on_Area_body_entered"]
 [connection signal="body_exited" from="Level Load" to="Level Load" method="_on_Area_body_exited"]

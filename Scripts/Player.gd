@@ -2,7 +2,8 @@ extends KinematicBody
 #Variables
 
 export var GRAVITY = -9.8*3
-
+export var GRAVITYMAX = 100
+var GRAVITY_INIT
 export var MAX_SLOPE_ANGLE = 45
 export var MAX_SPEED = 6
 export var DEACCEL = 10
@@ -15,7 +16,7 @@ var velocity = Vector3()
 var camera
 var rotation_helper
 
-var MOUSE_SENSITIVITY = 0.05
+export var MOUSE_SENSITIVITY = 0.05
 var buttonPressed
 var inputDir = Vector3()
 var testFloat = 0
@@ -27,33 +28,34 @@ var jumping
 var platformTranslation
 var pTransPrev
 var platformName
+var floor_angle = 0.0
 
 func _ready():
 	camera = $rotation_helper/Camera
 	rotation_helper = $rotation_helper
 	DEACCELINIT = DEACCEL
+	GRAVITY_INIT = GRAVITY
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	root = get_owner()
 	print(root.name)
 
 func _physics_process(delta):
-	
+		
 	if (keypressed):
-		# MIGHT REPLACE W TWEEN
 		currentSpeed = lerp(currentSpeed, MAX_SPEED, delta*10)
 	if (!keypressed):
-		# MMM... TWEENING...
 		currentSpeed = lerp(currentSpeed, 0, delta*DEACCEL)
-
-	if (is_on_floor() and GRAVITY != (-9.8*3)):
+		
+	if (is_on_floor() and GRAVITY != GRAVITY_INIT) and jumping:
 		print("back on floor, gravity set")
 		jumping = false
-		GRAVITY = -9.8*3
+		GRAVITY = GRAVITY_INIT
+				
 				
 	if ($playerfeet.is_colliding()):
 		var n = $playerfeet.get_collision_normal()
-		var floor_angle = rad2deg(acos(n.dot(Vector3(0,1,0))))
+		floor_angle = rad2deg(acos(n.dot(Vector3(0,1,0))))
 #		print(floor_angle)
 		if (floor_angle > 20):
 			DEACCEL = DEACCELFAST
@@ -62,8 +64,7 @@ func _physics_process(delta):
 		
 		## PLATFORM PHYSICS
 		## MOVING FROM REST TO PLATFORM
-	
-		if ($playerfeet.get_collider().get_parent().is_in_group("platform")) and !onPlatform:
+		if ($playerfeet.get_collider().get_parent().is_in_group("platform")) and !onPlatform and velocity.y <-.1:
 			platformName = $playerfeet.get_collider().get_parent().name
 			print("Landed on "+ platformName)
 			jumping = false
@@ -74,7 +75,6 @@ func _physics_process(delta):
 			onPlatform = true
 	
 		## MOVING FROM PLATFORM TO PLATFORM
-	
 		if ($playerfeet.get_collider().get_parent().is_in_group("platform")) and platformName != $playerfeet.get_collider().get_parent().name:
 			pTransPrev = platformTranslation
 			platformName = $playerfeet.get_collider().get_parent().name
@@ -113,8 +113,6 @@ func _physics_process(delta):
 
 func get_input(delta):
 	
-	
-	
 	if Input.is_action_just_pressed("movement_jumpin") and is_on_floor():
 		print("jumpin")
 		jumping = true
@@ -122,22 +120,25 @@ func get_input(delta):
 		velocity += Vector3(0,jumpSpeed,0)
 
 	if Input.is_action_pressed("movement_forward"):
-		inputDir += global_transform.basis.z 
+		inputDir += global_transform.basis.z
 		keypressed = true
 	if Input.is_action_pressed("movement_backward"):
 		inputDir -= global_transform.basis.z
 		keypressed = true
 	if Input.is_action_pressed("movement_left"):
-		inputDir += global_transform.basis.x 
+		inputDir += global_transform.basis.x
 		keypressed = true
 	if Input.is_action_pressed("movement_right"):
-		inputDir -= global_transform.basis.x 
+		inputDir -= global_transform.basis.x
 		keypressed = true
+
+	get_global_transform().basis
 
 	if (!Input.is_action_pressed("movement_forward") and
 		!Input.is_action_pressed("movement_backward") and
 		!Input.is_action_pressed("movement_left") and
 		!Input.is_action_pressed("movement_right")):
+			
 			keypressed = false
 
 	inputDir = inputDir.normalized()

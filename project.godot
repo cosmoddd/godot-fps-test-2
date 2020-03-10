@@ -20,9 +20,17 @@ _global_script_class_icons={
 
 [application]
 
-config/name="3d fpp new experiments"
+config/name="3d FPS Experiment"
 run/main_scene="res://Scenes/First Person Exploration.tscn"
 config/icon="res://icons/2019-11-06 21_43_41-Godot Engine - 3d fpp new experiments - First Person Exploration.tscn.png"
+
+[display]
+
+window/size/width=1080
+window/size/height=608
+window/stretch/mode="viewport"
+window/stretch/aspect="keep"
+window/stretch/shrink=3.0
 
 [input]
 
