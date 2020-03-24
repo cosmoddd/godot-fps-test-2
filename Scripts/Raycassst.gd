@@ -18,5 +18,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 	if (ray.is_colliding()):		
-		rotate_object_local(Vector3(0,1,0), 1 * rotationSpeed)
+		rotate_object_local(Vector3(0,1,0), 1 * rotationSpeed * delta)
+#		print("Casting away...")
+#		trans
 	pass

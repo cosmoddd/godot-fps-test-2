@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://model/sandbox.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://Scenes/simple_fpsplayer/Player.tscn" type="PackedScene" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://Scenes/oil road.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Scripts/Moving Platform.gd" type="Script" id=13]
 [ext_resource path="res://Scripts/Respawn.gd" type="Script" id=14]
+[ext_resource path="res://materials/Purple Study/study in purple.material" type="Material" id=15]
 
 [sub_resource type="ProceduralSky" id=1]
 sky_top_color = Color( 0.215686, 0.458824, 0.67451, 1 )
@@ -24,7 +25,7 @@ sky_energy = 2.46
 background_mode = 2
 background_sky = SubResource( 1 )
 background_color = Color( 0.368627, 0.411765, 0.403922, 1 )
-ambient_light_color = Color( 0.207843, 0.266667, 0.447059, 1 )
+ambient_light_color = Color( 0.254902, 0.32549, 0.545098, 1 )
 fog_enabled = true
 fog_color = Color( 0.0980392, 0.145098, 1, 1 )
 fog_sun_color = Color( 0.847059, 0.109804, 0.109804, 1 )
@@ -106,6 +107,8 @@ emission_on_uv2 = false
 [sub_resource type="CubeMesh" id=18]
 
 [sub_resource type="BoxShape" id=19]
+
+[sub_resource type="CubeMesh" id=20]
 
 [node name="SpatialZone" type="Spatial"]
 __meta__ = {
@@ -259,10 +262,25 @@ physics_material_override = SubResource( 11 )
 [node name="CollisionShape" type="CollisionShape" parent="Architecture/sandbox2_bigramp/StaticBody_sandbox2"]
 shape = SubResource( 10 )
 
-[node name="CSGPolygon" type="CSGPolygon" parent="Architecture/sandbox2_bigramp"]
+[node name="CSGCombiner" type="CSGCombiner" parent="Architecture/sandbox2_bigramp"]
 transform = Transform( -0.0594265, 0.998174, 0.205749, 0.0352428, 0.0129724, -18.9287, -0.997609, -0.0590019, -0.680955, 13.2492, -18.7095, -16.0208 )
 use_collision = true
+
+[node name="CSGPolygon" type="CSGPolygon" parent="Architecture/sandbox2_bigramp/CSGCombiner"]
+transform = Transform( 0.999998, -6.90852e-08, 4.47035e-08, -2.06055e-08, 0.999999, -1.49012e-08, -2.03727e-10, -1.74623e-10, 1, 0, 0, 0 )
+use_collision = true
 polygon = PoolVector2Array( -5.81908, 7.53638, -6.98714, -5.16268, -3.89938, 0.281283, -2.9079, 7.92116 )
+
+[node name="CSGPolygon2" type="CSGPolygon" parent="Architecture/sandbox2_bigramp/CSGCombiner"]
+transform = Transform( 0.055507, 0.993818, -0.0231981, -0.496494, 0.111029, 0.614641, 0.000854553, -0.000126006, 0.999474, -2.36389, 6.03245, 0.00613871 )
+use_collision = true
+polygon = PoolVector2Array( -5.81908, 7.53638, -6.66608, -1.7881, -3.57963, -0.494902, -2.9079, 7.92116 )
+
+[node name="CSGPolygon3" type="CSGPolygon" parent="Architecture/sandbox2_bigramp/CSGCombiner"]
+transform = Transform( 0.0555071, 0.350334, -2.26758e-05, -0.496493, 0.0391667, 0.000598326, 0.000854572, -4.44629e-05, 0.349078, -2.78438, 4.51567, -0.113728 )
+operation = 2
+use_collision = true
+polygon = PoolVector2Array( -5.81908, 7.53638, -6.66608, -1.7881, -0.522678, -2.16677, 4.23983, -2.19366 )
 
 [node name="sandbox_low" type="MeshInstance" parent="Architecture"]
 transform = Transform( 1, 0, 0, 0, 1.81621, 0, 0, 0, 1, -18.6672, -7.4398, 0.860231 )
@@ -313,6 +331,7 @@ transform = Transform( 0.571347, -0.000215892, 0.00064154, 0.000214272, 0.571345
 mesh = SubResource( 12 )
 material/0 = SubResource( 13 )
 script = ExtResource( 8 )
+rotationSpeed = 3.0
 
 [node name="StaticBody" type="StaticBody" parent="Targets/Hot Yon Target"]
 
@@ -417,6 +436,14 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13.4709, -2.13875, -12.5377 )
 
 [node name="Point B" type="Spatial" parent="Elevator2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13.4709, 3.11803, -12.5377 )
+
+[node name="Study In Purple" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -14.2429, 1.87408, -1.44184 )
+mesh = SubResource( 20 )
+material/0 = ExtResource( 15 )
+
+[node name="OmniLight2" type="OmniLight" parent="."]
+transform = Transform( 0.457783, -0.103931, 0.882968, 0, 0.993144, 0.116899, -0.889064, -0.0535146, 0.454645, -14.355, 3.04191, 1.67605 )
 [connection signal="body_entered" from="Respawn" to="Respawn" method="_on_Respawn_body_entered"]
 [connection signal="body_entered" from="Level Load" to="Level Load" method="_on_Area_body_entered"]
 [connection signal="body_exited" from="Level Load" to="Level Load" method="_on_Area_body_exited"]

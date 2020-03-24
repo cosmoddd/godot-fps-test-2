@@ -13,7 +13,7 @@ func _ready():
 func _physics_process(delta):
 	if !is_colliding() and isHovering:
 			isHovering = false
-			#print_debug("You are no longer colliding w something")
+			print_debug("You are no longer hovering w something")
 			emit_signal("notHovering")
 			pass
 	if is_colliding() and !isHovering:
