@@ -3,9 +3,8 @@
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/RayCast.gd" type="Script" id=2]
 
-[sub_resource type="CapsuleShape" id=1]
-margin = 0.3
-height = 2.0
+[sub_resource type="RayShape" id=1]
+length = 0.46507
 
 [node name="Player" type="KinematicBody"]
 input_ray_pickable = false
@@ -16,7 +15,7 @@ DEACCELFAST = 15
 jumpSpeed = 25
 
 [node name="collision_body" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 0, 0 )
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0 )
 shape = SubResource( 1 )
 
 [node name="rotation_helper" type="Spatial" parent="."]

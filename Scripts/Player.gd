@@ -110,6 +110,7 @@ func _physics_process(delta):
 	velocity.x = desired_velocity.x
 	velocity.z = desired_velocity.z
 	velocity = move_and_slide(velocity, Vector3.UP, true)
+#	velocity = move_and_slide_with_snap(velocity,Vector3(0,-.2,0),Vector3.UP, true,	4, 0.785398,true)
 
 func get_input(delta):
 	

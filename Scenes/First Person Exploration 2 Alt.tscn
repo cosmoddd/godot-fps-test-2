@@ -1,13 +1,7 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://model/sandbox.obj" type="ArrayMesh" id=1]
-[ext_resource path="res://Scenes/simple_fpsplayer/Player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://icons/cusor icon.png" type="Texture" id=3]
-[ext_resource path="res://Scripts/CursorChange.gd" type="Script" id=4]
-[ext_resource path="res://icons/push icon.png" type="Texture" id=5]
-[ext_resource path="res://icons/hand thing.png" type="Texture" id=6]
 [ext_resource path="res://Scenes/UIRoot.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Scripts/DelayFunky.gd" type="Script" id=8]
 [ext_resource path="res://Sword.gd" type="Script" id=9]
 [ext_resource path="res://Scripts/FXAA.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Scripts/LoadArea.gd" type="Script" id=11]
@@ -15,6 +9,7 @@
 [ext_resource path="res://Scripts/Moving Platform.gd" type="Script" id=13]
 [ext_resource path="res://Scripts/Respawn.gd" type="Script" id=14]
 [ext_resource path="res://materials/Purple Study/study in purple.material" type="Material" id=15]
+[ext_resource path="res://Scenes/fps 2/player/Player.tscn" type="PackedScene" id=16]
 
 [sub_resource type="ProceduralSky" id=1]
 sky_top_color = Color( 0.215686, 0.458824, 0.67451, 1 )
@@ -115,42 +110,11 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="PlayerDude" parent="." instance=ExtResource( 2 )]
-transform = Transform( -0.99921, 1.26128e-05, -0.039749, 9.01744e-06, 1, 9.087e-05, 0.039749, 9.04411e-05, -0.99921, 7.18996, 3.83133, 1.02864 )
-collision/safe_margin = 0.5
-GRAVITY = -29.4
-GRAVITYMAX = -29
-MAX_SLOPE_ANGLE = 50
-MAX_SPEED = 5
-DEACCELFAST = 80
-jumpSpeed = 10
-MOUSE_SENSITIVITY = 0.12
-
 [node name="OmniLight" type="OmniLight" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.80666, 2.26315, 0 )
+visible = false
 light_color = Color( 0.396078, 0.592157, 0.8, 1 )
 omni_range = 13.3
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="cusor icon" type="TextureRect" parent="CanvasLayer"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -50.0
-margin_top = -50.0
-margin_right = 50.0
-margin_bottom = 50.0
-texture = ExtResource( 3 )
-expand = true
-script = ExtResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-firstTexture = ExtResource( 3 )
-pushTexture = ExtResource( 5 )
-handStrageTexture = ExtResource( 6 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 2 )
@@ -329,8 +293,6 @@ shape = SubResource( 9 )
 transform = Transform( 0.571347, -0.000215892, 0.00064154, 0.000214272, 0.571345, 0.00143531, -0.000642083, -0.00143507, 0.571345, 2.69419, 2.39755, -0.590016 )
 mesh = SubResource( 12 )
 material/0 = SubResource( 13 )
-script = ExtResource( 8 )
-rotationSpeed = 3.0
 
 [node name="StaticBody" type="StaticBody" parent="Targets/Hot Yon Target"]
 
@@ -443,6 +405,9 @@ material/0 = ExtResource( 15 )
 
 [node name="OmniLight2" type="OmniLight" parent="."]
 transform = Transform( 0.457783, -0.103931, 0.882968, 0, 0.993144, 0.116899, -0.889064, -0.0535146, 0.454645, -14.355, 3.04191, 1.67605 )
+
+[node name="Player" parent="." instance=ExtResource( 16 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.04118, 2.14401, 0.872648 )
 [connection signal="body_entered" from="Respawn" to="Respawn" method="_on_Respawn_body_entered"]
 [connection signal="body_entered" from="Level Load" to="Level Load" method="_on_Area_body_entered"]
 [connection signal="body_exited" from="Level Load" to="Level Load" method="_on_Area_body_exited"]
