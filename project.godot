@@ -26,11 +26,11 @@ config/icon="res://icons/2019-11-06 21_43_41-Godot Engine - 3d fpp new experimen
 
 [display]
 
-window/size/width=1080
-window/size/height=608
+window/size/width=2218
+window/size/height=1207
+window/dpi/allow_hidpi=true
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
-window/stretch/shrink=3.0
 
 [input]
 

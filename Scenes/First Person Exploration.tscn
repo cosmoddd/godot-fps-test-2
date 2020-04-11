@@ -107,6 +107,7 @@ emission_on_uv2 = false
 [sub_resource type="CubeMesh" id=18]
 
 [sub_resource type="BoxShape" id=19]
+extents = Vector3( 1, 2.6518, 1 )
 
 [sub_resource type="CubeMesh" id=20]
 
@@ -116,13 +117,11 @@ __meta__ = {
 }
 
 [node name="PlayerDude" parent="." instance=ExtResource( 2 )]
-transform = Transform( -0.99921, 1.26128e-05, -0.039749, 9.01744e-06, 1, 9.087e-05, 0.039749, 9.04411e-05, -0.99921, 7.18996, 3.83133, 1.02864 )
+transform = Transform( -0.99921, 1.26128e-05, -0.039749, 9.01744e-06, 1, 9.087e-05, 0.039749, 9.04411e-05, -0.99921, 7.18998, 5.15498, 1.02876 )
 collision/safe_margin = 0.5
 GRAVITY = -29.4
-GRAVITYMAX = -29
 MAX_SLOPE_ANGLE = 50
 MAX_SPEED = 5
-DEACCELFAST = 80
 jumpSpeed = 10
 MOUSE_SENSITIVITY = 0.12
 
@@ -428,6 +427,7 @@ material/0 = null
 [node name="StaticBody" type="StaticBody" parent="Elevator2/Carrier2/Moving Platform 2"]
 
 [node name="CollisionShape" type="CollisionShape" parent="Elevator2/Carrier2/Moving Platform 2/StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.58431, 0 )
 shape = SubResource( 19 )
 
 [node name="Point A" type="Spatial" parent="Elevator2"]

@@ -2,12 +2,10 @@ extends KinematicBody
 #Variables
 
 export var GRAVITY = -9.8*3
-export var GRAVITYMAX = 100
 var GRAVITY_INIT
 export var MAX_SLOPE_ANGLE = 45
 export var MAX_SPEED = 6
 export var DEACCEL = 10
-export var DEACCELFAST = 40
 export var jumpSpeed = 4
 export var gravityModifier = 2
 var DEACCELINIT
@@ -30,7 +28,10 @@ var pTransPrev
 var platformName
 var floor_angle = 0.0
 
+var rayShape
+
 func _ready():
+	rayShape = $RayShape
 	camera = $rotation_helper/Camera
 	rotation_helper = $rotation_helper
 	DEACCELINIT = DEACCEL
@@ -44,62 +45,24 @@ func _physics_process(delta):
 		
 	if (keypressed):
 		currentSpeed = lerp(currentSpeed, MAX_SPEED, delta*10)
+		$RayShape.shape.set("slips_on_slope", true)
+		
 	if (!keypressed):
+		$RayShape.shape.set("slips_on_slope", false)
 		currentSpeed = lerp(currentSpeed, 0, delta*DEACCEL)
 		
 	if (is_on_floor() and GRAVITY != GRAVITY_INIT) and jumping:
 		print("back on floor, gravity set")
 		jumping = false
 		GRAVITY = GRAVITY_INIT
-				
+		
 				
 	if ($playerfeet.is_colliding()):
 		var n = $playerfeet.get_collision_normal()
 		floor_angle = rad2deg(acos(n.dot(Vector3(0,1,0))))
-#		print(floor_angle)
-		if (floor_angle > 20):
-			DEACCEL = DEACCELFAST
-		else:
-			DEACCEL = DEACCELINIT	
-		
-		## PLATFORM PHYSICS
-		## MOVING FROM REST TO PLATFORM
-		if ($playerfeet.get_collider().get_parent().is_in_group("platform")) and !onPlatform and velocity.y <-.1:
-			platformName = $playerfeet.get_collider().get_parent().name
-			print("Landed on "+ platformName)
-			jumping = false
-			platformTranslation = $playerfeet.get_collider().get_parent().get_parent()
-			get_parent().remove_child(self)
-			$playerfeet.get_collider().get_parent().get_parent().add_child(self)
-			translation = translation - platformTranslation.translation
-			onPlatform = true
 	
-		## MOVING FROM PLATFORM TO PLATFORM
-		if ($playerfeet.get_collider().get_parent().is_in_group("platform")) and platformName != $playerfeet.get_collider().get_parent().name:
-			pTransPrev = platformTranslation
-			platformName = $playerfeet.get_collider().get_parent().name
-			platformTranslation = $playerfeet.get_collider().get_parent().get_parent()
-			get_parent().remove_child(self)
-			$playerfeet.get_collider().get_parent().get_parent().add_child(self)
-			translation = (pTransPrev.translation + translation) - platformTranslation.translation
-			print("Moved from "+pTransPrev.name+" to "+platformTranslation.name)
-			onPlatform = true
-	
-		## JUMPING OFF PLATFORM
-		if (jumping and velocity.y >.1 and onPlatform):
-			print("JUMPED OFF platform")
-			get_parent().remove_child(self)
-			root.add_child(self)
-			translation = platformTranslation.translation + translation
-			onPlatform = false
-		
-		## MOVING FROM PLATFORM TO REST
-		if (!$playerfeet.get_collider().get_parent().is_in_group("platform")) and onPlatform:
-			print("walked off platform")
-			get_parent().remove_child(self)
-			root.add_child(self)
-			translation = platformTranslation.translation + translation
-			onPlatform = false
+	_playform_physics()
+
 	
 	## ACTUAL MOVEMENT
 
@@ -110,7 +73,7 @@ func _physics_process(delta):
 	velocity.x = desired_velocity.x
 	velocity.z = desired_velocity.z
 	velocity = move_and_slide(velocity, Vector3.UP, true)
-#	velocity = move_and_slide_with_snap(velocity,Vector3(0,-.2,0),Vector3.UP, true,	4, 0.785398,true)
+#	velocity = move_and_slide_with_snap(velocity,Vector3(0,-2,0),Vector3.UP, true,	4, 0.785398,true)
 
 func get_input(delta):
 	
@@ -141,11 +104,10 @@ func get_input(delta):
 		!Input.is_action_pressed("movement_right")):
 			
 			keypressed = false
-
+			
 	inputDir = inputDir.normalized()
 	return inputDir
 
-			
 
 func _input(event):
 	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
@@ -160,3 +122,48 @@ func _input(event):
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		else:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+
+
+func _playform_physics():
+	## PLATFORM PHYSICS
+	
+	if ($playerfeet.get_collider() == null):
+		return
+	
+	## MOVING FROM REST TO PLATFORM
+	if ($playerfeet.get_collider().get_parent().is_in_group("platform")) and !onPlatform and velocity.y <-.1:
+		platformName = $playerfeet.get_collider().get_parent().name
+		print("Landed on "+ platformName)
+		jumping = false
+		platformTranslation = $playerfeet.get_collider().get_parent().get_parent()
+		get_parent().remove_child(self)
+		$playerfeet.get_collider().get_parent().get_parent().add_child(self)
+		translation = translation - platformTranslation.translation
+		onPlatform = true
+
+	## MOVING FROM PLATFORM TO PLATFORM
+	if ($playerfeet.get_collider().get_parent().is_in_group("platform")) and platformName != $playerfeet.get_collider().get_parent().name:
+		pTransPrev = platformTranslation
+		platformName = $playerfeet.get_collider().get_parent().name
+		platformTranslation = $playerfeet.get_collider().get_parent().get_parent()
+		get_parent().remove_child(self)
+		$playerfeet.get_collider().get_parent().get_parent().add_child(self)
+		translation = (pTransPrev.translation + translation) - platformTranslation.translation		
+		print("Moved from "+pTransPrev.name+" to "+platformTranslation.name)
+		onPlatform = true
+
+	## JUMPING OFF PLATFORM
+	if (jumping and velocity.y >.1 and onPlatform):
+		print("JUMPED OFF platform")
+		get_parent().remove_child(self)
+		root.add_child(self)
+		translation = platformTranslation.translation + translation
+		onPlatform = false
+	
+	## MOVING FROM PLATFORM TO REST
+	if (!$playerfeet.get_collider().get_parent().is_in_group("platform")) and onPlatform:
+		print("walked off platform")
+		get_parent().remove_child(self)
+		root.add_child(self)
+		translation = platformTranslation.translation + translation
+		onPlatform = false

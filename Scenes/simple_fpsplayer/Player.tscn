@@ -1,22 +1,30 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/RayCast.gd" type="Script" id=2]
 
 [sub_resource type="RayShape" id=1]
-length = 0.46507
+length = 2.0
+slips_on_slope = true
+
+[sub_resource type="CapsuleShape" id=2]
+radius = 0.4637
+height = 0.11149
 
 [node name="Player" type="KinematicBody"]
 input_ray_pickable = false
 script = ExtResource( 1 )
 GRAVITY = -39.2
 MAX_SLOPE_ANGLE = 60
-DEACCELFAST = 15
 jumpSpeed = 25
 
-[node name="collision_body" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0 )
+[node name="RayShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1, 0 )
 shape = SubResource( 1 )
+
+[node name="Body" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0 )
+shape = SubResource( 2 )
 
 [node name="rotation_helper" type="Spatial" parent="."]
 __meta__ = {
