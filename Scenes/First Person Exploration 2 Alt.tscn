@@ -1,6 +1,8 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://model/sandbox.obj" type="ArrayMesh" id=1]
+[ext_resource path="res://materials/Purple Study/Purple Study_Normal.jpg" type="Texture" id=2]
+[ext_resource path="res://materials/Purple Study/Purple Study_Albedo.jpg" type="Texture" id=3]
 [ext_resource path="res://Scenes/UIRoot.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Sword.gd" type="Script" id=9]
 [ext_resource path="res://Scripts/FXAA.tscn" type="PackedScene" id=10]
@@ -67,7 +69,30 @@ points = PoolVector3Array( -1, 1, 1, 1, 1, -1, 1, 1, 1, -1, 1, -1, -1, -1, 1, 1,
 lightmap_size_hint = Vector2( 64, 64 )
 material = SubResource( 7 )
 
+[sub_resource type="SpatialMaterial" id=21]
+albedo_texture = ExtResource( 3 )
+normal_enabled = true
+normal_scale = 4.49
+normal_texture = ExtResource( 2 )
+uv1_scale = Vector3( 2.293, 2.86, 1.084 )
+uv1_triplanar = true
+uv1_triplanar_sharpness = 1.23114
+
 [sub_resource type="BoxShape" id=9]
+
+[sub_resource type="SpatialMaterial" id=22]
+albedo_texture = ExtResource( 3 )
+normal_enabled = true
+normal_scale = 10.38
+normal_texture = ExtResource( 2 )
+uv1_scale = Vector3( 1, 1, 0.22 )
+uv1_offset = Vector3( 0, 1, 0 )
+uv1_triplanar = true
+
+[sub_resource type="SpatialMaterial" id=23]
+albedo_texture = ExtResource( 3 )
+uv1_scale = Vector3( 0.791, 0.999, 0.418 )
+uv1_triplanar = true
 
 [sub_resource type="ConvexPolygonShape" id=10]
 points = PoolVector3Array( -9.09211, 0.426262, -9.09211, 9.09211, 0.426262, -9.09211, -9.09211, 0.426262, 9.09211, 9.09211, 0.426262, 9.09211, 10.5911, 0.34545, 10.5911, 10.5911, -0.34545, 10.5911, -10.5911, 0.34545, 10.5911, -10.5911, -0.34545, 10.5911, -10.5911, 0.34545, 10.5911, -10.5911, -0.34545, 10.5911, -10.5911, 0.34545, -10.5911, -10.5911, -0.34545, -10.5911, 10.5911, -0.34545, -10.5911, -10.5911, -0.34545, -10.5911, 10.5911, -0.34545, 10.5911, -10.5911, -0.34545, 10.5911, 10.5911, 0.34545, -10.5911, 10.5911, -0.34545, -10.5911, 10.5911, 0.34545, 10.5911, 10.5911, -0.34545, 10.5911, -10.5911, 0.34545, -10.5911, -10.5911, -0.34545, -10.5911, 10.5911, 0.34545, -10.5911, 10.5911, -0.34545, -10.5911, -9.09211, 0.426262, 9.09211, 9.09211, 0.426262, 9.09211, -9.09211, 3.63427, 9.09211, 9.09211, 3.63427, 9.09211, -9.09211, 0.426262, -9.09211, -9.09211, 0.426262, 9.09211, -9.09211, 3.63427, -9.09211, -9.09211, 3.63427, 9.09211, 10.5911, 3.71508, -10.5911, 10.5911, 3.71508, 10.5911, -10.5911, 3.71508, 10.5911, -10.5911, 3.71508, -10.5911, -9.09211, 3.63427, 9.09211, 9.09211, 3.63427, 9.09211, -10.5911, 3.71508, 10.5911, 10.5911, 3.71508, 10.5911, 9.09211, 3.63427, 9.09211, 9.09211, 3.63427, -9.09211, 10.5911, 3.71508, 10.5911, 10.5911, 3.71508, -10.5911, -9.09211, 3.63427, -9.09211, -9.09211, 3.63427, 9.09211, -10.5911, 3.71508, -10.5911, -10.5911, 3.71508, 10.5911, 9.09211, 3.63427, -9.09211, -9.09211, 3.63427, -9.09211, 10.5911, 3.71508, -10.5911, -10.5911, 3.71508, -10.5911, -10.5911, 3.71508, -10.5911, 10.5911, 3.71508, -10.5911, 10.5911, 3.71508, 10.5911, -10.5911, 3.71508, 10.5911, 9.09211, 0.426262, -9.09211, -9.09211, 0.426262, -9.09211, 9.09211, 3.63427, -9.09211, -9.09211, 3.63427, -9.09211, 9.09211, 0.426262, 9.09211, 9.09211, 0.426262, -9.09211, 9.09211, 3.63427, 9.09211, 9.09211, 3.63427, -9.09211 )
@@ -168,6 +193,7 @@ shape = SubResource( 6 )
 [node name="CSGMesh" type="CSGMesh" parent="Architecture"]
 transform = Transform( 4.85042, 0, 0, 0, 5.25485, 0, 0, 0, 2.72594, -4.55432, 2.20178, -7.50308 )
 mesh = SubResource( 8 )
+material = SubResource( 21 )
 
 [node name="CSGMesh2" type="CSGMesh" parent="Architecture/CSGMesh"]
 transform = Transform( 0.616153, 0, 0, 0, 0.734986, 0, 0, 0, 1, 0, 0.0490104, 0.428526 )
@@ -194,12 +220,14 @@ transform = Transform( 2.88407, 0, 0, 0, 1.58978, 0, 0, 0, 0.568354, 3.26511, 2.
 use_collision = true
 height = 6.65139
 depth = 11.1384
+material = SubResource( 22 )
 
 [node name="CSGBox2" type="CSGBox" parent="Architecture/CSGBox"]
 transform = Transform( 0.672801, 0, 0, 0, 0.866676, 0, 0, 0, 0.527355, -0.00145996, 0.26382, 3.84129 )
 operation = 2
 height = 4.87946
 depth = 11.1384
+material = SubResource( 23 )
 
 [node name="sandbox" type="MeshInstance" parent="Architecture"]
 transform = Transform( 1, 0, 0, 0, -0.999917, 0.0129025, 0, -0.0129025, -0.999917, 1.27707, -1.16198, 1.63215 )
@@ -406,8 +434,14 @@ material/0 = ExtResource( 15 )
 [node name="OmniLight2" type="OmniLight" parent="."]
 transform = Transform( 0.457783, -0.103931, 0.882968, 0, 0.993144, 0.116899, -0.889064, -0.0535146, 0.454645, -14.355, 3.04191, 1.67605 )
 
-[node name="Player" parent="." instance=ExtResource( 16 )]
+[node name="PlayerV2" parent="." instance=ExtResource( 16 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.04118, 2.14401, 0.872648 )
+head_path = NodePath("../PlayerV2/Head")
+cam_path = NodePath("../PlayerV2/Head/Camera")
+walk_speed = 6
+sprint_speed = 10
+acceleration = 7
+deacceleration = 15
 [connection signal="body_entered" from="Respawn" to="Respawn" method="_on_Respawn_body_entered"]
 [connection signal="body_entered" from="Level Load" to="Level Load" method="_on_Area_body_entered"]
 [connection signal="body_exited" from="Level Load" to="Level Load" method="_on_Area_body_exited"]

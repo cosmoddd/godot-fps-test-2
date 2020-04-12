@@ -32,18 +32,38 @@ var flying := false
 # Slopes
 export var floor_max_angle := 45.0
 
+# Platforms
+var root
+var onPlatform = false
+var jumping = false
+var platformName
+var platformTranslation
+var pTransPrev
+var _snap_init:= Vector3(0,-1,0)
+var _snap := Vector3(0,-1,0)
 ##################################################
 
 # Called when the node enters the scene tree
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	cam.fov = FOV
-
+	root = get_owner()
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame
 func _process(_delta: float) -> void:
 	move_axis.x = Input.get_action_strength("movement_forward") - Input.get_action_strength("movement_backward")
 	move_axis.y = Input.get_action_strength("movement_right") - Input.get_action_strength("movement_left")
+		
+	if (move_axis.x != 0 or move_axis.y != 0):
+		$RayShape.shape.set("slips_on_slope", true)
+		
+	if (!Input.is_action_pressed("movement_forward") and
+		!Input.is_action_pressed("movement_backward") and
+		!Input.is_action_pressed("movement_left") and
+		!Input.is_action_pressed("movement_right")):
+			
+		$RayShape.shape.set("slips_on_slope", false)
 	
 	camera_rotation()
 
@@ -60,6 +80,14 @@ func _physics_process(delta: float) -> void:
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		mouse_axis = event.relative
+	
+	#	ESCAPE THE GAME
+		
+	if Input.is_action_just_pressed("ui_cancel"):
+		if Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE:
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		else:
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 
 func walk(delta: float) -> void:
@@ -78,16 +106,31 @@ func walk(delta: float) -> void:
 	direction = direction.normalized()
 	
 	# Jump
-	var _snap: Vector3
-	if is_on_floor():
-		_snap = Vector3(0, -1, 0)
-		if Input.is_action_just_pressed("move_jump"):
-			_snap = Vector3(0, 0, 0)
+
+#	print(velocity.y)
+	
+#	print (jumping)
+
+	if(is_on_floor()):
+		if Input.is_action_just_pressed("movement_jumpin"):
 			velocity.y = jump_height
+			print("JUMP!")
+			_snap = Vector3(0, 0, 0)
+	
+	if (!is_on_floor()):
+#		print("IN THE AIR")
+		jumping = true
+	else:
+		jumping = false
+		_snap = Vector3(0, -1, 0)
+	
 	
 	# Apply Gravity
 	velocity.y -= gravity * delta
 	
+	# Deal w Platform Physics
+	_platform_physics()
+
 	# Sprint
 	var _speed: int
 	if (Input.is_action_pressed("move_sprint") and can_sprint and move_axis.x == 1):
@@ -103,7 +146,7 @@ func walk(delta: float) -> void:
 	# where would the player go
 	var _temp_vel: Vector3 = velocity
 	_temp_vel.y = 0
-	var _target: Vector3 = direction * _speed
+	var _target = direction * _speed
 	var _temp_accel: float
 	if direction.dot(_temp_vel) > 0:
 		_temp_accel = acceleration
@@ -127,7 +170,7 @@ func walk(delta: float) -> void:
 	velocity.y = move_and_slide_with_snap(velocity, _snap, FLOOR_NORMAL, 
 			true, 4, deg2rad(floor_max_angle)).y
 
-
+## DON'T USE FLY... WHY OH WHY?
 func fly(delta: float) -> void:
 	# Input
 	direction = Vector3()
@@ -148,6 +191,7 @@ func fly(delta: float) -> void:
 	
 	# Move
 	velocity = move_and_slide(velocity)
+##
 
 
 func camera_rotation() -> void:
@@ -168,3 +212,60 @@ func camera_rotation() -> void:
 		var temp_rot: Vector3 = head.rotation_degrees
 		temp_rot.x = clamp(temp_rot.x, -90, 90)
 		head.rotation_degrees = temp_rot
+
+func _platform_physics():
+	## PLATFORM PHYSICS
+#	if (platformTranslation != null):
+#		print(platformTranslation.name)
+	
+	if ($playerfeet.get_collider() == null):
+		print("returning nothing")
+		return
+	
+	## FALLING ON TO PLATFORM
+	if ($playerfeet.get_collider().get_parent().is_in_group("platform")) \
+			and !onPlatform and velocity.y <-.1:
+		platformName = $playerfeet.get_collider().get_parent().name
+		print("Landed on "+ platformName)
+		jumping = false
+		platformTranslation = $playerfeet.get_collider().get_parent().get_parent()
+		get_parent().remove_child(self)
+		$playerfeet.get_collider().get_parent().get_parent().add_child(self)
+		translation = translation - platformTranslation.translation
+		onPlatform = true
+
+	## MOVING FROM PLATFORM TO PLATFORM
+	if ($playerfeet.get_collider().get_parent().is_in_group("platform")) \
+			and !jumping \
+			and platformName != $playerfeet.get_collider().get_parent().name:
+		pTransPrev = platformTranslation
+		platformName = $playerfeet.get_collider().get_parent().name
+		platformTranslation = $playerfeet.get_collider().get_parent().get_parent()
+		get_parent().remove_child(self)
+		$playerfeet.get_collider().get_parent().get_parent().add_child(self)
+		## if there's no previous platform...
+		if (pTransPrev == null):
+			translation = translation - platformTranslation.translation		
+			print("Moved from NO PLATFORM to "+platformTranslation.name)
+		## but if there is...
+		if (pTransPrev != null):
+			translation = (pTransPrev.translation + translation) - platformTranslation.translation		
+			print("Moved from "+pTransPrev.name+" to "+platformTranslation.name)
+		onPlatform = true
+
+	## JUMPING OFF PLATFORM
+	if (jumping and velocity.y >.1 and onPlatform):
+		print("JUMPED OFF platform")
+		get_parent().remove_child(self)
+		root.add_child(self)
+		translation = platformTranslation.translation + translation
+		onPlatform = false
+#
+	## MOVING FROM PLATFORM TO REGULAR COLLIDER
+	if (!$playerfeet.get_collider().get_parent().is_in_group("platform")) and onPlatform:
+		print("walked off platform")
+		get_parent().remove_child(self)
+		root.add_child(self)
+		translation = platformTranslation.translation + translation
+		platformTranslation = null
+		onPlatform = false

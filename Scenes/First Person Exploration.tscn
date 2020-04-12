@@ -116,14 +116,16 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="PlayerDude" parent="." instance=ExtResource( 2 )]
-transform = Transform( -0.99921, 1.26128e-05, -0.039749, 9.01744e-06, 1, 9.087e-05, 0.039749, 9.04411e-05, -0.99921, 7.18998, 5.15498, 1.02876 )
+[node name="PlayerDude" parent="." groups=[
+"player",
+] instance=ExtResource( 2 )]
+transform = Transform( -0.99921, 0, -0.0397477, 0, 1, 0, 0.0397477, 0, -0.99921, 7.18998, 5.15498, 1.02876 )
 collision/safe_margin = 0.5
 GRAVITY = -29.4
 MAX_SLOPE_ANGLE = 50
 MAX_SPEED = 5
 jumpSpeed = 10
-MOUSE_SENSITIVITY = 0.12
+MOUSE_SENSITIVITY = 5
 
 [node name="OmniLight" type="OmniLight" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.80666, 2.26315, 0 )
@@ -397,6 +399,7 @@ mesh = SubResource( 18 )
 material/0 = null
 
 [node name="StaticBody" type="StaticBody" parent="Elevator1/Carrier1/Moving Platform"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.61353, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Elevator1/Carrier1/Moving Platform/StaticBody"]
 shape = SubResource( 19 )
@@ -420,7 +423,7 @@ nodeB = NodePath("../Point B")
 [node name="Moving Platform 2" type="MeshInstance" parent="Elevator2/Carrier2" groups=[
 "platform",
 ]]
-transform = Transform( 2.30422, 0, 0, 0, 0.258002, 0, 0, 0, 2.2753, -0.000191689, -0.00023973, -0.000171661 )
+transform = Transform( 2.30422, 0, 0, 0, 0.258002, 0, 0, 0, 2.2753, -0.000191689, -0.000239849, -0.000171661 )
 mesh = SubResource( 18 )
 material/0 = null
 

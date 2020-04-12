@@ -8,11 +8,10 @@ length = 2.0
 slips_on_slope = true
 
 [sub_resource type="CapsuleShape" id=2]
-radius = 0.4637
+radius = 0.48
 height = 0.11149
 
-[node name="Player" type="KinematicBody"]
-input_ray_pickable = false
+[node name="PlayerdUDE" type="KinematicBody"]
 script = ExtResource( 1 )
 GRAVITY = -39.2
 MAX_SLOPE_ANGLE = 60
