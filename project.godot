@@ -21,7 +21,7 @@ _global_script_class_icons={
 [application]
 
 config/name="3d FPS Experiment"
-run/main_scene="res://Scenes/First Person Exploration.tscn"
+run/main_scene="res://Scenes/First Person Exploration 2 Alt.tscn"
 config/icon="res://icons/2019-11-06 21_43_41-Godot Engine - 3d fpp new experiments - First Person Exploration.tscn.png"
 
 [display]

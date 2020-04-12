@@ -1,22 +1,24 @@
-[gd_scene format=2]
+[gd_scene load_steps=3 format=2]
 
-[node name="Node" type="Node"]
+[ext_resource path="res://fonts/HeavyEquipment.ttf" type="DynamicFontData" id=1]
+
+[sub_resource type="DynamicFont" id=1]
+size = 46
+font_data = ExtResource( 1 )
+
+[node name="Main Screen" type="Node"]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="LineEdit" type="LineEdit" parent="CanvasLayer"]
-margin_left = 13.4397
-margin_top = 65.4082
-margin_right = 156.44
-margin_bottom = 157.408
-text = "The fuck?"
-align = 1
-
 [node name="Label" type="Label" parent="CanvasLayer"]
-margin_left = 16.7503
-margin_top = 9.0892
-margin_right = 241.75
-margin_bottom = 105.089
-custom_colors/font_color = Color( 0, 1, 0.25098, 1 )
-text = "Yo YO YO what is going on
-Why no!"
+margin_top = 1.0
+margin_right = 600.0
+margin_bottom = 401.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Slip in with the space ghost
+only one can get with the source"
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
