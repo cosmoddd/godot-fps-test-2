@@ -2,10 +2,10 @@
 
 [ext_resource path="res://Scenes/fps 2/player/player_controller_ALT.gd" type="Script" id=1]
 
-[sub_resource type="RayShape" id=2]
+[sub_resource type="RayShape" id=1]
 length = 1.73683
 
-[sub_resource type="CapsuleShape" id=1]
+[sub_resource type="CapsuleShape" id=2]
 radius = 0.6
 height = 0.205501
 
@@ -24,11 +24,11 @@ sprint_speed = 12
 
 [node name="RayShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0 )
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 
 [node name="Collision" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.362018, 1.58243e-08 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="Head" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )

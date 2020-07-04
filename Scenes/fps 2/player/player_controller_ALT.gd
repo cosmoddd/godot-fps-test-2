@@ -65,15 +65,15 @@ func _process(_delta: float) -> void:
 			
 		$RayShape.shape.set("slips_on_slope", false)
 	
-	camera_rotation()
+	_camera_rotation()
 
 
 # Called every physics tick. 'delta' is constant
 func _physics_process(delta: float) -> void:
 	if flying:
-		fly(delta)
+		_fly(delta)
 	else:
-		walk(delta)
+		_walk(delta)
 
 
 # Called when there is an input event
@@ -90,7 +90,7 @@ func _input(event: InputEvent) -> void:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 
-func walk(delta: float) -> void:
+func _walk(delta: float) -> void:
 	# Input
 	direction = Vector3()
 	var aim: Basis = get_global_transform().basis
@@ -171,7 +171,7 @@ func walk(delta: float) -> void:
 			true, 4, deg2rad(floor_max_angle)).y
 
 ## DON'T USE FLY... WHY OH WHY?
-func fly(delta: float) -> void:
+func _fly(delta: float) -> void:
 	# Input
 	direction = Vector3()
 	var aim = head.get_global_transform().basis
@@ -194,7 +194,7 @@ func fly(delta: float) -> void:
 ##
 
 
-func camera_rotation() -> void:
+func _camera_rotation() -> void:
 	if Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED:
 		return
 	if mouse_axis.length() > 0:
