@@ -1,8 +1,9 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=40 format=2]
 
 [ext_resource path="res://model/sandbox.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://materials/Purple Study/Purple Study_Normal.jpg" type="Texture" id=2]
 [ext_resource path="res://materials/Purple Study/Purple Study_Albedo.jpg" type="Texture" id=3]
+[ext_resource path="res://gameplay nodes/Dialog System.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/UIRoot.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Sword.gd" type="Script" id=9]
 [ext_resource path="res://Scripts/FXAA.tscn" type="PackedScene" id=10]
@@ -22,7 +23,7 @@ sky_energy = 2.46
 background_mode = 2
 background_sky = SubResource( 1 )
 background_color = Color( 0.368627, 0.411765, 0.403922, 1 )
-ambient_light_color = Color( 0.254902, 0.32549, 0.545098, 1 )
+ambient_light_color = Color( 0.823529, 0.831373, 0.854902, 1 )
 fog_enabled = true
 fog_color = Color( 0.0980392, 0.145098, 1, 1 )
 fog_sun_color = Color( 0.847059, 0.109804, 0.109804, 1 )
@@ -36,7 +37,7 @@ fog_height_min = 0.0
 fog_height_max = 25.0
 fog_height_curve = 0.96594
 tonemap_mode = 3
-tonemap_exposure = 0.8
+tonemap_exposure = 1.55
 tonemap_white = 5.98
 auto_exposure_speed = 0.01
 ssao_enabled = true
@@ -214,7 +215,7 @@ mesh = SubResource( 11 )
 material = SubResource( 12 )
 
 [node name="CSGMesh2" type="CSGMesh" parent="Architecture/CSGMesh"]
-transform = Transform( 0.616153, 0, 0, 0, 0.734986, 0, 0, 0, 1, 0, 0.0490104, 0.428526 )
+transform = Transform( 0.616153, 0, 0, 0, 0.734986, 0, 0, 0, 1, 0, 0.0490104, 0.328163 )
 operation = 2
 mesh = SubResource( 11 )
 
@@ -383,6 +384,8 @@ sceneThang = ExtResource( 12 )
 transform = Transform( 0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, 0, 0, 0 )
 shape = SubResource( 23 )
 
+[node name="Dialog System" parent="." instance=ExtResource( 4 )]
+
 [node name="Sword" type="Node" parent="."]
 script = ExtResource( 9 )
 
@@ -450,7 +453,7 @@ mesh = SubResource( 26 )
 material/0 = ExtResource( 15 )
 
 [node name="OmniLight2" type="OmniLight" parent="."]
-transform = Transform( 0.457783, -0.103931, 0.882968, 0, 0.993144, 0.116899, -0.889064, -0.0535146, 0.454645, -14.355, 3.04191, 1.67605 )
+transform = Transform( 0.457783, -0.103931, 0.882968, 0, 0.993144, 0.116899, -0.889064, -0.0535145, 0.454644, -15.1821, 4.05751, 0.520246 )
 
 [node name="PlayerV2" parent="." instance=ExtResource( 16 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.04118, 2.14401, 0.872648 )
