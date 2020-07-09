@@ -1,0 +1,30 @@
+{
+    "BEGIN": [
+        "10",
+        "Photographer",
+        "Ah, you finally arrive with my pizza, {YOURNAME}.",
+        "13"
+    ],
+
+    "BEGIN_FINALE":[
+        "10",
+        "Photographer",
+        "{YOURNAME}.  About that situation back at my studio...",
+        "My business insurance is going through the roof thanks to you.",
+        "And your... pizza.  Caetano <i>never</i> made pizza like that.  ",
+        "END"
+
+    ],
+
+    "Pizza 5 - Gareon's Pizza":[
+        "10",
+        "Photographer",
+        "Ah, that's the thing!  Pizza... set it down on the table there...",
+        "12",
+        "O pizza... I've been waiting for the hour when my mouth could met its crust.",
+        "10",
+        "I tend to get sentimental with my pizza, {YOURNAME}.  Don't think anything of it.",
+        "IEND"
+    ]
+
+}

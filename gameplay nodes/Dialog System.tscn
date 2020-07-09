@@ -11,6 +11,11 @@ input_ray_pickable = false
 monitorable = false
 collision_mask = 0
 script = ExtResource( 1 )
+dailogPath = "res://Dialogs/The Photographer.json"
+diaKey = "ENTER KNOWN DIALOG KEY HERE"
+dialogDict = {
+
+}
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, 0, 0, 0 )

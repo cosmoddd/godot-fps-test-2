@@ -385,6 +385,9 @@ transform = Transform( 0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, 0, 0, 0 )
 shape = SubResource( 23 )
 
 [node name="Dialog System" parent="." instance=ExtResource( 4 )]
+dialogDict = {
+
+}
 
 [node name="Sword" type="Node" parent="."]
 script = ExtResource( 9 )

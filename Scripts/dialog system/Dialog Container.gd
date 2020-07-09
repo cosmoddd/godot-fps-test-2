@@ -4,34 +4,39 @@ signal TriggerEntered
 
 export(Resource) var dialogData
 export(bool) var inTrigger
-var cameraNode
-var zOffset
-export var arrayTest = ["funky", "drummer dirk","situation"]
-export var startingMessage = "starting message"
-export var thisText = "this text"
-export (String, FILE, "*.json") var arrayPath 
-export (String, FILE, "*.json") var textPath 
-export var textDict: Dictionary
+export (String, FILE, "*.json") var dailogPath 
+export(String) var diaKey
+export var dialogDict = {}
+export(Array) var keys
+export(Array) var diaArray
 
 func _ready():
 	$CollisionShape.disabled=true
+	_loadArray()
 	TextInit()
 	pass # Replace with function body.
 
 
 func TextInit():
-	zOffset = get_node("Z Offset")
+	# zOffset = get_node("Z Offset")
 	# _loadArray()
-	_loadFile()
 	pass
 
-func _loadFile():
-	var data_file = File.new()
-	data_file.open(textPath, data_file.READ)
-	var parsedText = parse_json(data_file.get_as_text())
-	data_file.close()
-	textDict = parsedText
-	
+
+func _loadArray():
+	var dat = File.new()
+	dat.open(dailogPath, dat.READ)
+	var parsedText = parse_json(dat.get_as_text())
+	dat.close()
+	dialogDict = parsedText
+	# print(testDir)
+	keys = dialogDict.keys()
+	if (dialogDict.keys().has(diaKey)):
+		diaArray = (dialogDict[diaKey])
+	else:
+		print("NO KEY HERE, boys")
+	pass
+
 
 func _on_Dialog_System_body_entered():
 	emit_signal("TriggerEntered")
