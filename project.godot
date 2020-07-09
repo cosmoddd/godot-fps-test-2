@@ -9,12 +9,18 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Resource",
+"class": "Dialog_Asset",
+"language": "GDScript",
+"path": "res://Scripts/dialog system/Dialog Asset.gd"
+}, {
 "base": "Node",
 "class": "swordDude",
 "language": "GDScript",
 "path": "res://Sword.gd"
 } ]
 _global_script_class_icons={
+"Dialog_Asset": "",
 "swordDude": "res://icons/deepcut.svg"
 }
 

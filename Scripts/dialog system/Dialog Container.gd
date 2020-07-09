@@ -9,21 +9,16 @@ export(String) var diaKey
 export var dialogDict = {}
 export(Array) var keys
 export(Array) var diaArray
+var currentDialog = ""
+var optionScreen = false
 
 func _ready():
 	$CollisionShape.disabled=true
-	_loadArray()
 	TextInit()
 	pass # Replace with function body.
 
 
 func TextInit():
-	# zOffset = get_node("Z Offset")
-	# _loadArray()
-	pass
-
-
-func _loadArray():
 	var dat = File.new()
 	dat.open(dailogPath, dat.READ)
 	var parsedText = parse_json(dat.get_as_text())
@@ -44,10 +39,11 @@ func _on_Dialog_System_body_entered():
 	$"Text Zone Control 1"._build()
 	$"Text Zone Control 2"._build()
 	$"Text Zone Control 3"._build()
-	$TextFadeTweener.playback_speed = 1
+	
+	$TextFadeTweener.playback_speed = 1  # fade in the text
 	$TextFadeTweener.start()
 
-	#	InitSoundSourceAndRouter(textBuilder1, textBuilder2, textBuilder3, dialogMode);
+	#	InitSoundSourceAndRouter(textBuilder1, textBuilder2, textBuilder3, dialogMode);  actually build the dialog
 	pass
 
 func _on_Dialog_System_body_exited():
@@ -57,27 +53,6 @@ func _on_Dialog_System_body_exited():
 	$"Text Zone Control 3"._build()
 	$TextFadeTweener.playback_speed = -1
 	$TextFadeTweener.start()
-
-	# public void RetrieveDialogBlock(string _key)
-#{
-#
-#	// set new command
-#	print("Looking for " + _key);
-#
-#	if (fullDialogDict.ContainsKey(_key))
-#	{
-#		// print(fullDialogDict[_key]);
-#		currentDialogBlock = new List<string>();
-#		currentDialogBlock = fullDialogDict[_key];
-#	}
-#
-#	// dialog doesn't contain key -- quit with message
-#	if (!fullDialogDict.ContainsKey(_key))
-#	{
-#		print(this.name + " DIALOG DOESN'T CONTAIN KEY - EXITING NOW!");
-#		// ExitInteractionFunc();
-#	}
-#}
 
 
 # public void DeactivateSoundSource(DialogBuilderCMD textBuilder1, DialogBuilderCMD textBuilder2, DialogBuilderCMD textBuilder3, DialogType dialogMode)
