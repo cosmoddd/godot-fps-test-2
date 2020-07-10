@@ -9,7 +9,7 @@ export(String) var diaKey
 export var dialogDict = {}
 export(Array) var keys
 export(Array) var diaArray
-var currentDialog = ""
+export(String) var currentDialog = "zooby zooby zoo"
 var optionScreen = false
 
 func _ready():
@@ -28,17 +28,23 @@ func TextInit():
 	keys = dialogDict.keys()
 	if (dialogDict.keys().has(diaKey)):
 		diaArray = (dialogDict[diaKey])
+		print("We are trying to display: "+diaArray[0])
+		print(dialogData.currentPosition)
 	else:
 		print("NO KEY HERE, boys")
+		pass
+	$"Dialog Router"._ThisLine()
+	$"Dialog Router"._PersonSpeaks()  # test
 	pass
 
 
 func _on_Dialog_System_body_entered():
 	emit_signal("TriggerEntered")
+	$"Dialog Router".t = 0
 	inTrigger = true
-	$"Text Zone Control 1"._build()
-	$"Text Zone Control 2"._build()
-	$"Text Zone Control 3"._build()
+	$"Dialog Router"._PersonSpeaks()
+#	$"Text Zone Control 2"._build()
+#	$"Text Zone Control 3"._build()
 	
 	$TextFadeTweener.playback_speed = 1  # fade in the text
 	$TextFadeTweener.start()
@@ -48,9 +54,6 @@ func _on_Dialog_System_body_entered():
 
 func _on_Dialog_System_body_exited():
 	inTrigger = false;
-	$"Text Zone Control 1"._build()
-	$"Text Zone Control 2"._build()
-	$"Text Zone Control 3"._build()
 	$TextFadeTweener.playback_speed = -1
 	$TextFadeTweener.start()
 

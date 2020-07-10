@@ -3,79 +3,93 @@ extends Node
 var dContainer
 var t = 0
 var dialogEnding = false
-var personSpeaking = 0
+var personSpeaking = 1
 
 func _ready():
 	dContainer = get_parent()
 
+	
 func _process(delta):
-	if (dContainer.optionScreen == true):
-		pass
 	t += delta
-	if (Input.action_press("mouseClick") &&
-		!dialogEnding &&
+	if (Input.is_action_just_pressed("mouseClick")&&
+	# 	# !dialogEnding &&
 		(t > .45)):
 		t = 0
 		_NextLineAndRoute()
+	# if (dContainer.optionScreen == true):
+	# 	pass
+	# if (dContainer.inTrigger == false):
+	# 	pass
 
 func _NextLineAndRoute():
-	_NextLine()
-	_RouteDialog(dContainer.dialogData.currentDialog)
+	if ((dContainer.dialogData.currentPosition+1) < dContainer.diaArray.size()):
+		_NextLine()
+		_PersonSpeaks()
+		pass
+	else:
+		print("END OF ARRAY")
+		# _RouteDialog(dContainer.dialogData.currentDialog)
 	pass
-	
+
+func _ThisLine():
+	dContainer.currentDialog = dContainer.diaArray[dContainer.dialogData.currentPosition]
+	pass
+
 func _NextLine():
-	dContainer.dialogData.currentPosition = dContainer.dialogData.currentPosition+1
-	dContainer.dialogData.currentDialog = dContainer.diaArray[dContainer.dialogData.currentPosition]
+	dContainer.dialogData.currentPosition += 1
+	dContainer.currentDialog = dContainer.diaArray[dContainer.dialogData.currentPosition]
 	pass
 
 func _RouteDialog(s):
-	if (currentLine == dContainer.dialogData.stringSwitchWord1):
+	if (dContainer.dialogData.currentDialog == dContainer.dialogData.stringSwitchWord1):
 			personSpeaking = 1
 			dContainer.dialogData.lastPersonSpeaking = 1;
-			PersonSpeaks(personSpeaking)
+			_PersonSpeaks()
 			pass
-	if (currentLine == dContainer.dialogSO.stringSwitchWord2):
+	if (dContainer.dialogData.currentDialog == dContainer.dialogSO.stringSwitchWord2):
 			personSpeaking = 2
 			dContainer.dialogSO.lastPersonSpeaking = 2
-			PersonSpeaks(personSpeaking)
+			_PersonSpeaks()
 			pass
-	if (currentLine == dContainer.dialogSO.stringSwitchWord3):
+	if (dContainer.dialogData.currentDialog == dContainer.dialogSO.stringSwitchWord3):
 			personSpeaking = 3
 			dContainer.dialogSO.lastPersonSpeaking = 3
-			PersonSpeaks(personSpeaking)
+			_PersonSpeaks()
 			pass
 
-	if ((s == "Pause 1") || ( s ==  "Pause 2")|| ( s ==  "Pause 3")|| ( s ==  "Pause 4")|| ( s ==  "Pause 5")|| ( s ==  "Pause 6")|| ( s ==  "Pause 7")):
+	if ((s == "Pause 1") || ( s ==  "Pause 2")|| 
+			( s ==  "Pause 3")|| ( s ==  "Pause 4")|| 
+			( s ==  "Pause 5")|| ( s ==  "Pause 6")|| ( s ==  "Pause 7")):
 		pass
 		
-	if ((s == "10")||(s == "20")||(s == "30")||(s == "21")||(s == "23")||(s == "12")||(s == "13")||(s == "31")||(s == "32")||(s == "00")||(s == "11")||(s == "22")||(s == "33")||(s == "14")||(s == "24")||(s == "34")):
-	{
-		HeadTurn(s)
+	if ((s == "10")||(s == "20")||(s == "30")||
+			(s == "21")||(s == "23")||(s == "12")||
+			(s == "13")||(s == "31")||(s == "32")||
+			(s == "00")||(s == "11")||(s == "22")||
+			(s == "33")||(s == "14")||(s == "24")||(s == "34")):
+		# HeadTurn(s):
 		pass
-	}
 
-	if (s == "EVENT")
-	{
-		NextLine();
-		if (dContainer.dialogSO.CurrentDialog == "Hmmm...")
-		{
-			
-		}
-	}
+	if (s == "EVENT"):
+		_NextLine();
+		# if (dContainer.dialogSO.CurrentDialog == "Hmmm...")
 	
-	if (s == "END")
-	{
-		t = 0;
-		dialogEnding = true;
-		EndDialog();
-		return;
-	}
-	if (s == "")
-	{
-		NextLineAndRoute();
-		return;
-	}
+	if (s == "END"):
+		t = 0
+		dialogEnding = true
+		_EndDialog()
+		pass
 
-	PersonSpeaks()
+	if (s == "zzz"):
+		_NextLineAndRoute();
+		pass;
 
-		# PersonSpeaks(dContainer.dialogSO.lastPersonSpeaking);  // THIS IS IT - ALL THIS FUCKIN CODE JUST SO A PERSON CAN BLAB IT UP
+func _EndDialog():
+	pass
+	
+func _PersonSpeaks():
+	$"../Text Zone Control 1/Offset/MeshInstance/Viewport/RichTextLabel".bbcode_text = dContainer.currentDialog
+#	_personSpeaking = 1
+	pass
+	# PersonSpeaks(dContainer.dialogSO.lastPersonSpeaking);  // THIS IS IT - ALL THIS FUCKIN CODE JUST SO A PERSON CAN BLAB IT UP
+

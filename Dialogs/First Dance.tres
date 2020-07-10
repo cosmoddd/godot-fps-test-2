@@ -5,4 +5,7 @@
 [resource]
 script = ExtResource( 1 )
 currentDialog = ""
-currentPosition = ""
+currentPosition = 0
+stringSwitchWord1 = "Gareon"
+stringSwitchWord2 = "Duuz"
+stringSwitchWord3 = "Monkee"

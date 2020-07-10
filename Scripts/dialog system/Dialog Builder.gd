@@ -1,11 +1,7 @@
 extends Node
 
-func _ready():
-	
-	pass # Replace with function body.
-
-func _build():
-	print("Building "+self.name)
+func _BuildDialog():
+	# $Offset.MeshInstance.Viewport.richtextlabel=text  <-
 	pass
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
