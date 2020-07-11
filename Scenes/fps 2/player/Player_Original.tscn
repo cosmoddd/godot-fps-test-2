@@ -7,7 +7,7 @@ length = 1.73683
 
 [sub_resource type="CapsuleShape" id=2]
 radius = 0.6
-height = 0.205501
+height = 0.209112
 
 [node name="Player WORKING" type="KinematicBody" groups=[
 "Player",
@@ -27,7 +27,7 @@ transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0
 shape = SubResource( 1 )
 
 [node name="Collision" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.362018, 1.58243e-08 )
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.201504, 8.808e-09 )
 shape = SubResource( 2 )
 
 [node name="Head" type="Spatial" parent="."]

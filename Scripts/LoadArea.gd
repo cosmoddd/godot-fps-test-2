@@ -12,7 +12,7 @@ func _ready():
 
 
 func _on_Area_body_entered(body):
-	if (body.is_in_group("player")):
+	if (body.is_in_group("Player")):
 		print("Entered the scene with..." + body.name)
 		sceneNode = scene.instance()
 		add_child(sceneNode)
@@ -20,7 +20,7 @@ func _on_Area_body_entered(body):
 
 
 func _on_Area_body_exited(body):
-	if (body.is_in_group("player")):
+	if (body.is_in_group("Player")):
 		sceneNode.queue_free()
 		print("Exited the scene with..." + body.name)
 		pass # Replace with function body.

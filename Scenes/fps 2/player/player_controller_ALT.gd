@@ -31,7 +31,7 @@ export var fly_accel := 4
 var flying := false
 # Slopes
 export var floor_max_angle := 45.0
-
+export(float) var currentFloorAngle
 # Platforms
 var root
 var onPlatform = false
@@ -49,22 +49,28 @@ func _ready() -> void:
 	cam.fov = FOV
 	root = get_owner()
 	
-
 # Called every frame. 'delta' is the elapsed time since the previous frame
 func _process(_delta: float) -> void:
 	move_axis.x = Input.get_action_strength("movement_forward") - Input.get_action_strength("movement_backward")
 	move_axis.y = Input.get_action_strength("movement_right") - Input.get_action_strength("movement_left")
 		
 	if (move_axis.x != 0 or move_axis.y != 0):
-		$RayShape.shape.set("slips_on_slope", true)
+		$RayShapePrime.shape.set("slips_on_slope", true)
+		$RayShape0.shape.set("slips_on_slope", true)
+		$RayShape2.shape.set("slips_on_slope", true)
+		$RayShape3.shape.set("slips_on_slope", true)
+		$RayShape4.shape.set("slips_on_slope", true)
 		
 	if (!Input.is_action_pressed("movement_forward") and
 		!Input.is_action_pressed("movement_backward") and
 		!Input.is_action_pressed("movement_left") and
 		!Input.is_action_pressed("movement_right")):
-			
-		$RayShape.shape.set("slips_on_slope", false)
-	
+		
+		$RayShapePrime.shape.set("slips_on_slope", false)
+		$RayShape0.shape.set("slips_on_slope", false)
+		$RayShape2.shape.set("slips_on_slope", false)
+		$RayShape3.shape.set("slips_on_slope", false)
+		$RayShape4.shape.set("slips_on_slope", false)
 	_camera_rotation()
 
 
@@ -107,25 +113,25 @@ func _walk(delta: float) -> void:
 	
 	# Jump
 
-#	print(velocity.y)
-	
-#	print (jumping)
-
 	if(is_on_floor()):
+		_snap = Vector3(0,-1,0)
 		if Input.is_action_just_pressed("movement_jumpin"):
 			velocity.y = jump_height
 			print("JUMP!")
 			_snap = Vector3(0, 0, 0)
+			
 	
 	if (!is_on_floor()):
 #		print("IN THE AIR")
 		jumping = true
+		# velocity.y -= gravity * delta
 	else:
 		jumping = false
-		_snap = Vector3(0, -1, 0)
+		# _snap = Vector3(0, -1, 0)
 	
 	
 	# Apply Gravity
+	# if (not is_on_floor()):
 	velocity.y -= gravity * delta
 	
 	# Deal w Platform Physics
@@ -166,9 +172,21 @@ func _walk(delta: float) -> void:
 		if velocity.z < _vel_clamp and velocity.z > -_vel_clamp:
 			velocity.z = 0
 	
+	_slope_helper()
+		
 	# Move
 	velocity.y = move_and_slide_with_snap(velocity, _snap, FLOOR_NORMAL, 
-			true, 4, deg2rad(floor_max_angle)).y
+	true, 4, deg2rad(floor_max_angle)).y
+			
+	pass
+
+
+func _slope_helper():
+	# # get floor angle
+	# var n = $playerfeet.get_collision_normal()
+	# currentFloorAngle = rad2deg(acos(n.dot(Vector3(0,1,0))))
+	# print(currentFloorAngle)
+	pass
 
 ## DON'T USE FLY... WHY OH WHY?
 func _fly(delta: float) -> void:

@@ -10,11 +10,17 @@ export var dialogDict = {}
 export(Array) var keys
 export(Array) var diaArray
 export(String) var currentDialog = "zooby zooby zoo"
+
+export(NodePath) var textLabel1Path
+var textLabel1
+
 var optionScreen = false
+var textTweenFader
 
 func _ready():
-	$CollisionShape.disabled=true
 	TextInit()
+	textLabel1 = get_node(textLabel1Path)
+	textLabel1.modulate.a = 0
 	pass # Replace with function body.
 
 
@@ -33,30 +39,33 @@ func TextInit():
 	else:
 		print("NO KEY HERE, boys")
 		pass
-	$"Dialog Router"._ThisLine()
-	$"Dialog Router"._PersonSpeaks()  # test
+	# $"Dialog Router"._ThisLine()
+	# $"Dialog Router"._PersonSpeaks()  # test
 	pass
 
-
-func _on_Dialog_System_body_entered():
+func _on_body_entered(body):
+	print(body.name)
+	print("Trigger entered!")
 	emit_signal("TriggerEntered")
 	$"Dialog Router".t = 0
 	inTrigger = true
+	$"Dialog Router"._ThisLine()
 	$"Dialog Router"._PersonSpeaks()
-#	$"Text Zone Control 2"._build()
-#	$"Text Zone Control 3"._build()
-	
 	$TextFadeTweener.playback_speed = 1  # fade in the text
+	$TextFadeTweener.interpolate_property(textLabel1, "modulate",Color( 1, 1, 1, textLabel1.modulate.a), Color( 1, 1, 1, 1 ), 1, Tween.EASE_IN, Tween.EASE_OUT)
 	$TextFadeTweener.start()
 
 	#	InitSoundSourceAndRouter(textBuilder1, textBuilder2, textBuilder3, dialogMode);  actually build the dialog
 	pass
 
-func _on_Dialog_System_body_exited():
+func _on_body_exited(body):
+	print(body.name)
+	print("Trigger exited!")
 	inTrigger = false;
-	$TextFadeTweener.playback_speed = -1
+	# $TextFadeTweener.playback_speed = -1
+	$TextFadeTweener.interpolate_property(textLabel1, "modulate", Color( 1, 1, 1, textLabel1.modulate.a), Color( 1, 1, 1, 0), 1, Tween.EASE_IN, Tween.EASE_OUT)
 	$TextFadeTweener.start()
-
+	pass
 
 # public void DeactivateSoundSource(DialogBuilderCMD textBuilder1, DialogBuilderCMD textBuilder2, DialogBuilderCMD textBuilder3, DialogType dialogMode)
 # {

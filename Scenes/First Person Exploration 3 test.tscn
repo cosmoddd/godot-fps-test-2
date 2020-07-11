@@ -1,9 +1,10 @@
-[gd_scene load_steps=40 format=2]
+[gd_scene load_steps=42 format=2]
 
 [ext_resource path="res://model/sandbox.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://materials/Purple Study/Purple Study_Normal.jpg" type="Texture" id=2]
 [ext_resource path="res://materials/Purple Study/Purple Study_Albedo.jpg" type="Texture" id=3]
 [ext_resource path="res://gameplay nodes/Dialog System.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/fps 2/player_backup/Player_backup.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/UIRoot.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Sword.gd" type="Script" id=9]
 [ext_resource path="res://Scripts/FXAA.tscn" type="PackedScene" id=10]
@@ -12,7 +13,6 @@
 [ext_resource path="res://Scripts/Moving Platform.gd" type="Script" id=13]
 [ext_resource path="res://Scripts/Respawn.gd" type="Script" id=14]
 [ext_resource path="res://materials/Purple Study/study in purple.material" type="Material" id=15]
-[ext_resource path="res://Scenes/fps 2/player/Player.tscn" type="PackedScene" id=16]
 
 [sub_resource type="ProceduralSky" id=1]
 sky_top_color = Color( 0.215686, 0.458824, 0.67451, 1 )
@@ -136,11 +136,21 @@ emission_on_uv2 = false
 
 [sub_resource type="BoxShape" id=23]
 
-[sub_resource type="CubeMesh" id=24]
+[sub_resource type="ViewportTexture" id=24]
+viewport_path = NodePath("Dialog System/Text Zone Control 1/Offset/MeshInstance/Viewport")
 
-[sub_resource type="BoxShape" id=25]
+[sub_resource type="SpatialMaterial" id=25]
+resource_local_to_scene = true
+flags_transparent = true
+flags_unshaded = true
+flags_vertex_lighting = true
+albedo_texture = SubResource( 24 )
 
 [sub_resource type="CubeMesh" id=26]
+
+[sub_resource type="BoxShape" id=27]
+
+[sub_resource type="CubeMesh" id=28]
 
 [node name="SpatialZone" type="Spatial"]
 __meta__ = {
@@ -157,7 +167,7 @@ omni_range = 13.3
 environment = SubResource( 2 )
 
 [node name="Buillboard" type="MeshInstance" parent="."]
-transform = Transform( -0.953311, 0, 0.996644, 0, 7.76454, 0, -11.6077, 0, -0.0818516, -9.06744, 3.62495, 2.82505 )
+transform = Transform( -0.953311, 0, 0.996644, 0, 7.76454, 0, -11.6077, 0, -0.0818516, -9.06315, 3.62495, 2.82937 )
 mesh = SubResource( 3 )
 material/0 = SubResource( 5 )
 
@@ -287,7 +297,7 @@ use_collision = true
 polygon = PoolVector2Array( -5.81908, 7.53638, -6.66608, -1.7881, -3.57963, -0.494902, -2.9079, 7.92116 )
 
 [node name="CSGPolygon3" type="CSGPolygon" parent="Architecture/sandbox2_bigramp/CSGCombiner"]
-transform = Transform( 0.0555071, 0.350334, -2.26758e-05, -0.496493, 0.0391667, 0.000598326, 0.000854572, -4.44629e-05, 0.349078, -2.78438, 4.51567, -0.113728 )
+transform = Transform( 0.0555071, 0.350334, -2.26833e-05, -0.496493, 0.0391667, 0.000598326, 0.000854572, -4.44629e-05, 0.349078, -2.78438, 4.51567, -0.113728 )
 operation = 2
 use_collision = true
 polygon = PoolVector2Array( -5.81908, 7.53638, -6.66608, -1.7881, -0.522678, -2.16677, 4.23983, -2.19366 )
@@ -385,9 +395,14 @@ transform = Transform( 0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, 0, 0, 0 )
 shape = SubResource( 23 )
 
 [node name="Dialog System" parent="." instance=ExtResource( 4 )]
+transform = Transform( -0.38828, 0, 1.87263, 0, 3.02633, 0, -1.87263, 0, -0.38828, -6.4913, 1.21699, 6.19602 )
 dialogDict = {
 
 }
+
+[node name="MeshInstance" parent="Dialog System/Text Zone Control 1/Offset" index="0"]
+transform = Transform( 1.37752, 0, 5.96046e-08, 0, 0.39795, 0, 0, 0, 3.06116, 0.665, 0, 0 )
+material/0 = SubResource( 25 )
 
 [node name="Sword" type="Node" parent="."]
 script = ExtResource( 9 )
@@ -408,13 +423,13 @@ nodeB = NodePath("../Point B")
 "platform",
 ]]
 transform = Transform( 2.30422, 0, 0, 0, 0.258002, 0, 0, 0, 2.2753, -0.000191689, -0.00023973, -0.000171661 )
-mesh = SubResource( 24 )
+mesh = SubResource( 26 )
 material/0 = null
 
 [node name="StaticBody" type="StaticBody" parent="Elevator1/Carrier1/Moving Platform"]
 
 [node name="CollisionShape" type="CollisionShape" parent="Elevator1/Carrier1/Moving Platform/StaticBody"]
-shape = SubResource( 25 )
+shape = SubResource( 27 )
 
 [node name="Point A" type="Spatial" parent="Elevator1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.579, -0.952, -11.2503 )
@@ -436,13 +451,13 @@ nodeB = NodePath("../Point B")
 "platform",
 ]]
 transform = Transform( 2.30422, 0, 0, 0, 0.258002, 0, 0, 0, 2.2753, -0.000191689, -0.00023973, -0.000171661 )
-mesh = SubResource( 24 )
+mesh = SubResource( 26 )
 material/0 = null
 
 [node name="StaticBody" type="StaticBody" parent="Elevator2/Carrier2/Moving Platform 2"]
 
 [node name="CollisionShape" type="CollisionShape" parent="Elevator2/Carrier2/Moving Platform 2/StaticBody"]
-shape = SubResource( 25 )
+shape = SubResource( 27 )
 
 [node name="Point A" type="Spatial" parent="Elevator2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13.4709, -2.13875, -12.5377 )
@@ -452,20 +467,18 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13.4709, 3.11803, -12.5377 )
 
 [node name="Study In Purple" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -14.2429, 1.87408, -1.44184 )
-mesh = SubResource( 26 )
+mesh = SubResource( 28 )
 material/0 = ExtResource( 15 )
 
 [node name="OmniLight2" type="OmniLight" parent="."]
 transform = Transform( 0.457783, -0.103931, 0.882968, 0, 0.993144, 0.116899, -0.889064, -0.0535145, 0.454644, -15.1821, 4.05751, 0.520246 )
 
-[node name="PlayerV2" parent="." instance=ExtResource( 16 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.04118, 2.14401, 0.872648 )
-head_path = NodePath("../PlayerV2/Head")
-cam_path = NodePath("../PlayerV2/Head/Camera")
+[node name="Player_Backup" parent="." instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.626511, 0 )
 walk_speed = 6
 sprint_speed = 10
-acceleration = 7
-deacceleration = 15
 [connection signal="body_entered" from="Respawn" to="Respawn" method="_on_Respawn_body_entered"]
 [connection signal="body_entered" from="Level Load" to="Level Load" method="_on_Area_body_entered"]
 [connection signal="body_exited" from="Level Load" to="Level Load" method="_on_Area_body_exited"]
+
+[editable path="Dialog System"]

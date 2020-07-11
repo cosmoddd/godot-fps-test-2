@@ -7,5 +7,6 @@ func _ready():
 
 
 func _on_Respawn_body_entered(body):
+	print("ya fell!")
 	body.transform = $"Respawn Node".transform
 	pass # Replace with function body.

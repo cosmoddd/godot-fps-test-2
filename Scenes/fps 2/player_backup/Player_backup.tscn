@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scenes/fps 2/player_backup/player_controller.gd" type="Script" id=1]
+
+[sub_resource type="CapsuleShape" id=1]
+radius = 0.6
+height = 2.29102
+
+[node name="Player_Backup" type="KinematicBody" groups=[
+"Player",
+]]
+collision_layer = 2
+collision_mask = 3
+script = ExtResource( 1 )
+head_path = NodePath("Head")
+cam_path = NodePath("Head/Camera")
+
+[node name="Collision" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 1 )
+
+[node name="Head" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.29152, 0 )
+
+[node name="Camera" type="Camera" parent="Head"]
+fov = 80.0
+far = 250.0

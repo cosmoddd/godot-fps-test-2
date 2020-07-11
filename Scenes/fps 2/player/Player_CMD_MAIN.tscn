@@ -1,0 +1,67 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Scenes/fps 2/player/player_controller_ALT.gd" type="Script" id=1]
+
+[sub_resource type="RayShape" id=1]
+margin = 0.001
+length = 1.54243
+
+[sub_resource type="CapsuleShape" id=2]
+margin = 0.001
+radius = 0.55938
+height = 1.94185
+
+[node name="Player WORKING" type="KinematicBody" groups=[
+"Player",
+]]
+collision_layer = 2
+collision_mask = 3
+script = ExtResource( 1 )
+mouse_sensitivity = 6.0
+head_path = NodePath("../Player WORKING/Head")
+cam_path = NodePath("../Player WORKING/Head/Camera")
+FOV = 60.0
+walk_speed = 7
+sprint_speed = 12
+
+[node name="RayShapeHelpers" type="Node" parent="."]
+
+[node name="RayShapePrime" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0 )
+shape = SubResource( 1 )
+
+[node name="RayShape0" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, -0.4, 0, 0.4 )
+shape = SubResource( 1 )
+disabled = true
+
+[node name="RayShape2" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0.4, 0, 0.4 )
+shape = SubResource( 1 )
+disabled = true
+
+[node name="RayShape3" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0.4, 0, -0.4 )
+shape = SubResource( 1 )
+disabled = true
+
+[node name="RayShape4" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, -0.4, 0, -0.4 )
+shape = SubResource( 1 )
+disabled = true
+
+[node name="Collision" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 2 )
+
+[node name="Head" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+
+[node name="Camera" type="Camera" parent="Head"]
+fov = 80.0
+far = 250.0
+
+[node name="playerfeet" type="RayCast" parent="."]
+enabled = true
+cast_to = Vector3( 0, -3, 0 )
+collision_mask = 3

@@ -15,8 +15,8 @@ func _ready():
 
 func _process(delta):
 	t += delta
-	if (Input.is_action_just_pressed("mouseClick")&&
-	# 	# !dialogEnding &&
+	if (Input.is_action_just_pressed("mouseClick") && 
+		dContainer.inTrigger&&
 		(t > .45)):
 		t = 0
 		_NextLineAndRoute()

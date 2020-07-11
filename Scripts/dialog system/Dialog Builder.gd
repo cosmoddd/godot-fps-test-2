@@ -18,8 +18,11 @@ func _ready():
 	pass
 
 func _BuildDialog(strang):
+	builtString = ""
+	# textLabel.bbcode_text = "" # reset
 	stringIndex = 0
 	splitStrang = strang.split(" ")
+
 	pass
 	
 func _process(delta):
@@ -32,11 +35,11 @@ func _process(delta):
 			pass
 		else:
 			over = true
-			print("do something...")
+			# print("do something...")
 			print(stringIndex)
 			time = 0
 			builtString = (builtString+splitStrang[stringIndex]+" ")
-			print(builtString)
+			# print(builtString)
 			stringIndex+=1
 			textLabel.bbcode_text = builtString # build the string!
 			over = false

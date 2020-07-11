@@ -1,24 +1,22 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://model/sandbox.obj" type="ArrayMesh" id=1]
-[ext_resource path="res://Scenes/simple_fpsplayer/Player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://icons/cusor icon.png" type="Texture" id=3]
-[ext_resource path="res://Scripts/CursorChange.gd" type="Script" id=4]
-[ext_resource path="res://icons/push icon.png" type="Texture" id=5]
-[ext_resource path="res://icons/hand thing.png" type="Texture" id=6]
-[ext_resource path="res://Scenes/UIRoot.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Scripts/DelayFunky.gd" type="Script" id=8]
+[ext_resource path="res://Scripts/Respawn.gd" type="Script" id=2]
+[ext_resource path="res://materials/Purple Study/Purple Study_Albedo.jpg" type="Texture" id=3]
+[ext_resource path="res://Scenes/oil road.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/fps 2/player/Player_CMD_MAIN.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scripts/FXAA.tscn" type="PackedScene" id=6]
+[ext_resource path="res://gameplay nodes/Dialog System.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/UIRoot.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Sword.gd" type="Script" id=9]
-[ext_resource path="res://Scripts/FXAA.tscn" type="PackedScene" id=10]
-[ext_resource path="res://Scripts/LoadArea.gd" type="Script" id=11]
-[ext_resource path="res://Scenes/oil road.tscn" type="PackedScene" id=12]
-[ext_resource path="res://Scripts/Moving Platform.gd" type="Script" id=13]
-[ext_resource path="res://Scripts/Respawn.gd" type="Script" id=14]
-[ext_resource path="res://materials/Purple Study/study in purple.material" type="Material" id=15]
-[ext_resource path="res://gameplay nodes/Dialog System.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Scripts/LoadArea.gd" type="Script" id=10]
+[ext_resource path="res://Scripts/Moving Platform.gd" type="Script" id=11]
+[ext_resource path="res://materials/Purple Study/Purple Study_Normal.jpg" type="Texture" id=12]
+[ext_resource path="res://materials/Purple Study/study in purple.material" type="Material" id=13]
+[ext_resource path="res://Scenes/Area TEST.tscn" type="PackedScene" id=14]
 
 [sub_resource type="ProceduralSky" id=1]
-sky_top_color = Color( 0.215686, 0.458824, 0.67451, 1 )
+sky_top_color = Color( 0.0392157, 0.215686, 0.188235, 1 )
 sky_horizon_color = Color( 0.14902, 0.0745098, 0.647059, 1 )
 sky_energy = 2.46
 
@@ -26,7 +24,7 @@ sky_energy = 2.46
 background_mode = 2
 background_sky = SubResource( 1 )
 background_color = Color( 0.368627, 0.411765, 0.403922, 1 )
-ambient_light_color = Color( 0.254902, 0.32549, 0.545098, 1 )
+ambient_light_color = Color( 0.34902, 0.623529, 0.45098, 1 )
 fog_enabled = true
 fog_color = Color( 0.0980392, 0.145098, 1, 1 )
 fog_sun_color = Color( 0.847059, 0.109804, 0.109804, 1 )
@@ -40,7 +38,7 @@ fog_height_min = 0.0
 fog_height_max = 25.0
 fog_height_curve = 0.96594
 tonemap_mode = 3
-tonemap_exposure = 0.8
+tonemap_exposure = 1.55
 tonemap_white = 5.98
 auto_exposure_speed = 0.01
 ssao_enabled = true
@@ -58,31 +56,65 @@ adjustment_enabled = true
 adjustment_contrast = 1.17
 adjustment_saturation = 1.17
 
-[sub_resource type="CubeMesh" id=3]
+[sub_resource type="QuadMesh" id=3]
 
-[sub_resource type="BoxShape" id=4]
+[sub_resource type="ViewportTexture" id=4]
+viewport_path = NodePath("Viewport")
 
-[sub_resource type="ConvexPolygonShape" id=5]
+[sub_resource type="SpatialMaterial" id=5]
+resource_local_to_scene = true
+flags_transparent = true
+flags_unshaded = true
+albedo_texture = SubResource( 4 )
+
+[sub_resource type="CubeMesh" id=6]
+
+[sub_resource type="BoxShape" id=7]
+
+[sub_resource type="ConvexPolygonShape" id=8]
 points = PoolVector3Array( -1, 1, 1, 1, 1, -1, 1, 1, 1, -1, 1, -1, -1, -1, 1, 1, -1, -1, 1, -1, 1, -1, -1, -1, 1, 1, 1, -1, 1, -1, 1, 1, -1, -1, 1, 1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, 1, 1, 1, -1, -1, 1, -1, 1, 1, 1, -1, 1, 1, 1, -1, -1, -1, -1, -1, 1, -1, 1, -1, -1 )
-
-[sub_resource type="BoxShape" id=6]
-
-[sub_resource type="SpatialMaterial" id=7]
-
-[sub_resource type="CubeMesh" id=8]
-lightmap_size_hint = Vector2( 64, 64 )
-material = SubResource( 7 )
 
 [sub_resource type="BoxShape" id=9]
 
-[sub_resource type="ConvexPolygonShape" id=10]
+[sub_resource type="SpatialMaterial" id=10]
+
+[sub_resource type="CubeMesh" id=11]
+lightmap_size_hint = Vector2( 64, 64 )
+material = SubResource( 10 )
+
+[sub_resource type="SpatialMaterial" id=12]
+albedo_texture = ExtResource( 3 )
+normal_enabled = true
+normal_scale = 4.49
+normal_texture = ExtResource( 12 )
+uv1_scale = Vector3( 2.293, 2.86, 1.084 )
+uv1_triplanar = true
+uv1_triplanar_sharpness = 1.23114
+
+[sub_resource type="BoxShape" id=13]
+
+[sub_resource type="SpatialMaterial" id=14]
+albedo_texture = ExtResource( 3 )
+normal_enabled = true
+normal_scale = 10.38
+normal_texture = ExtResource( 12 )
+uv1_scale = Vector3( 1, 1, 0.22 )
+uv1_offset = Vector3( 0, 1, 0 )
+uv1_triplanar = true
+
+[sub_resource type="SpatialMaterial" id=15]
+albedo_texture = ExtResource( 3 )
+uv1_scale = Vector3( 0.791, 0.999, 0.418 )
+uv1_triplanar = true
+
+[sub_resource type="ConvexPolygonShape" id=16]
 points = PoolVector3Array( -9.09211, 0.426262, -9.09211, 9.09211, 0.426262, -9.09211, -9.09211, 0.426262, 9.09211, 9.09211, 0.426262, 9.09211, 10.5911, 0.34545, 10.5911, 10.5911, -0.34545, 10.5911, -10.5911, 0.34545, 10.5911, -10.5911, -0.34545, 10.5911, -10.5911, 0.34545, 10.5911, -10.5911, -0.34545, 10.5911, -10.5911, 0.34545, -10.5911, -10.5911, -0.34545, -10.5911, 10.5911, -0.34545, -10.5911, -10.5911, -0.34545, -10.5911, 10.5911, -0.34545, 10.5911, -10.5911, -0.34545, 10.5911, 10.5911, 0.34545, -10.5911, 10.5911, -0.34545, -10.5911, 10.5911, 0.34545, 10.5911, 10.5911, -0.34545, 10.5911, -10.5911, 0.34545, -10.5911, -10.5911, -0.34545, -10.5911, 10.5911, 0.34545, -10.5911, 10.5911, -0.34545, -10.5911, -9.09211, 0.426262, 9.09211, 9.09211, 0.426262, 9.09211, -9.09211, 3.63427, 9.09211, 9.09211, 3.63427, 9.09211, -9.09211, 0.426262, -9.09211, -9.09211, 0.426262, 9.09211, -9.09211, 3.63427, -9.09211, -9.09211, 3.63427, 9.09211, 10.5911, 3.71508, -10.5911, 10.5911, 3.71508, 10.5911, -10.5911, 3.71508, 10.5911, -10.5911, 3.71508, -10.5911, -9.09211, 3.63427, 9.09211, 9.09211, 3.63427, 9.09211, -10.5911, 3.71508, 10.5911, 10.5911, 3.71508, 10.5911, 9.09211, 3.63427, 9.09211, 9.09211, 3.63427, -9.09211, 10.5911, 3.71508, 10.5911, 10.5911, 3.71508, -10.5911, -9.09211, 3.63427, -9.09211, -9.09211, 3.63427, 9.09211, -10.5911, 3.71508, -10.5911, -10.5911, 3.71508, 10.5911, 9.09211, 3.63427, -9.09211, -9.09211, 3.63427, -9.09211, 10.5911, 3.71508, -10.5911, -10.5911, 3.71508, -10.5911, -10.5911, 3.71508, -10.5911, 10.5911, 3.71508, -10.5911, 10.5911, 3.71508, 10.5911, -10.5911, 3.71508, 10.5911, 9.09211, 0.426262, -9.09211, -9.09211, 0.426262, -9.09211, 9.09211, 3.63427, -9.09211, -9.09211, 3.63427, -9.09211, 9.09211, 0.426262, 9.09211, 9.09211, 0.426262, -9.09211, 9.09211, 3.63427, 9.09211, 9.09211, 3.63427, -9.09211 )
 
-[sub_resource type="PhysicsMaterial" id=11]
+[sub_resource type="PhysicsMaterial" id=17]
 
-[sub_resource type="CubeMesh" id=12]
+[sub_resource type="CubeMesh" id=18]
 
-[sub_resource type="SpatialMaterial" id=13]
+[sub_resource type="SpatialMaterial" id=19]
 albedo_color = Color( 0.2, 0.333333, 0.737255, 1 )
 metallic_specular = 0.0
 emission_enabled = true
@@ -91,9 +123,9 @@ emission_energy = 4.07
 emission_operator = 0
 emission_on_uv2 = false
 
-[sub_resource type="BoxShape" id=14]
+[sub_resource type="BoxShape" id=20]
 
-[sub_resource type="SpatialMaterial" id=15]
+[sub_resource type="SpatialMaterial" id=21]
 albedo_color = Color( 0, 1, 1, 1 )
 emission_enabled = true
 emission = Color( 0, 0.8, 0.984314, 1 )
@@ -101,96 +133,71 @@ emission_energy = 7.41
 emission_operator = 0
 emission_on_uv2 = false
 
-[sub_resource type="BoxShape" id=16]
+[sub_resource type="BoxShape" id=22]
 
-[sub_resource type="ViewportTexture" id=21]
-viewport_path = NodePath("Text Zone Control 1/Offset/MeshInstance/Viewport")
+[sub_resource type="BoxShape" id=23]
 
-[sub_resource type="SpatialMaterial" id=22]
+[sub_resource type="CubeMesh" id=26]
+
+[sub_resource type="BoxShape" id=27]
+
+[sub_resource type="CubeMesh" id=28]
+
+[sub_resource type="ViewportTexture" id=29]
+viewport_path = NodePath("Dialog System/Text Zone Control 1/Offset/MeshInstance/Viewport")
+
+[sub_resource type="SpatialMaterial" id=30]
 resource_local_to_scene = true
 flags_transparent = true
 flags_unshaded = true
 flags_vertex_lighting = true
-albedo_texture = SubResource( 21 )
-
-[sub_resource type="BoxShape" id=17]
-
-[sub_resource type="CubeMesh" id=18]
-
-[sub_resource type="BoxShape" id=19]
-extents = Vector3( 1, 2.6518, 1 )
-
-[sub_resource type="CubeMesh" id=20]
+albedo_texture = SubResource( 29 )
 
 [node name="SpatialZone" type="Spatial"]
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="PlayerDude" parent="." groups=[
-"player",
-] instance=ExtResource( 2 )]
-transform = Transform( -0.99921, 0, -0.0397477, 0, 1, 0, 0.0397477, 0, -0.99921, 7.18998, 5.15498, 1.02876 )
-collision/safe_margin = 0.5
-GRAVITY = -29.4
-MAX_SLOPE_ANGLE = 50
-MAX_SPEED = 5
-jumpSpeed = 10
-MOUSE_SENSITIVITY = 5
-
 [node name="OmniLight" type="OmniLight" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.80666, 2.26315, 0 )
+visible = false
 light_color = Color( 0.396078, 0.592157, 0.8, 1 )
 omni_range = 13.3
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="cusor icon" type="TextureRect" parent="CanvasLayer"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -50.0
-margin_top = -50.0
-margin_right = 50.0
-margin_bottom = 50.0
-texture = ExtResource( 3 )
-expand = true
-script = ExtResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-firstTexture = ExtResource( 3 )
-pushTexture = ExtResource( 5 )
-handStrageTexture = ExtResource( 6 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 2 )
 
-[node name="Viewport" type="Viewport" parent="."]
-size = Vector2( 400, 600 )
-hdr = false
+[node name="Buillboard" type="MeshInstance" parent="."]
+transform = Transform( -0.953311, 0, 0.996644, 0, 7.76454, 0, -11.6077, 0, -0.0818516, -9.06315, 3.62495, 2.82937 )
+mesh = SubResource( 3 )
+material/0 = SubResource( 5 )
 
-[node name="Node" parent="Viewport" instance=ExtResource( 7 )]
+[node name="Viewport" type="Viewport" parent="."]
+size = Vector2( 600, 400 )
+transparent_bg = true
+hdr = false
+render_target_v_flip = true
+
+[node name="Node" parent="Viewport" instance=ExtResource( 8 )]
 
 [node name="Architecture" type="Node" parent="."]
 
 [node name="Wall1" type="MeshInstance" parent="Architecture"]
 transform = Transform( 1, 0, 0, 0, 4.33354, 0, 0, 0, 4.59911, 18.2518, 4.19012, 2.83261 )
 use_in_baked_light = true
-mesh = SubResource( 3 )
+mesh = SubResource( 6 )
 material/0 = null
 
 [node name="StaticBody_Wall1" type="StaticBody" parent="Architecture/Wall1"]
 collision_mask = 2
 
 [node name="CollisionShape" type="CollisionShape" parent="Architecture/Wall1/StaticBody_Wall1"]
-shape = SubResource( 4 )
+shape = SubResource( 7 )
 
 [node name="Wall2" type="MeshInstance" parent="Architecture"]
 transform = Transform( -0.0385846, 0.00718528, 4.59568, 6.39758e-05, 4.33353, -0.00761994, -0.999255, 0, -0.177455, 15.2881, 4.14219, 7.95947 )
 use_in_baked_light = true
-mesh = SubResource( 3 )
+mesh = SubResource( 6 )
 material/0 = null
 
 [node name="StaticBody_Wall2" type="StaticBody" parent="Architecture/Wall2"]
@@ -198,12 +205,12 @@ collision_mask = 2
 
 [node name="CollisionShape" type="CollisionShape" parent="Architecture/Wall2/StaticBody_Wall2"]
 transform = Transform( 1, 0, 5.96046e-08, 0, 1, 0, 0, 0, 1, 0.0147429, 0, -0.00420833 )
-shape = SubResource( 5 )
+shape = SubResource( 8 )
 
 [node name="Wall3" type="MeshInstance" parent="Architecture"]
 transform = Transform( -8.14603e-08, 6.11435e-07, 4.59911, 0.837051, 2.37099, -4.14343e-08, -0.547125, 3.6274, -7.48143e-07, 3.94933, -0.562092, 7.9596 )
 use_in_baked_light = true
-mesh = SubResource( 3 )
+mesh = SubResource( 6 )
 material/0 = null
 
 [node name="StaticBody_Wall3" type="StaticBody" parent="Architecture/Wall3"]
@@ -211,46 +218,61 @@ transform = Transform( 1, 5.96046e-07, -2.84217e-14, 0, 1, 2.84217e-14, -3.55271
 
 [node name="CollisionShape" type="CollisionShape" parent="Architecture/Wall3/StaticBody_Wall3"]
 transform = Transform( 1, 2.38419e-07, 5.96046e-08, 0, 1, 2.13163e-14, -5.32907e-15, -7.10543e-15, 1, 0.0147429, 0, -0.00420833 )
-shape = SubResource( 6 )
+shape = SubResource( 9 )
 
 [node name="CSGMesh" type="CSGMesh" parent="Architecture"]
 transform = Transform( 4.85042, 0, 0, 0, 5.25485, 0, 0, 0, 2.72594, -4.55432, 2.20178, -7.50308 )
-mesh = SubResource( 8 )
+mesh = SubResource( 11 )
+material = SubResource( 12 )
 
 [node name="CSGMesh2" type="CSGMesh" parent="Architecture/CSGMesh"]
-transform = Transform( 0.616153, 0, 0, 0, 0.734986, 0, 0, 0, 1, 0, 0.0490104, 0.428526 )
+transform = Transform( 0.616153, 0, 0, 0, 0.734986, 0, 0, 0, 1, 0, 0.0490104, 0.328163 )
 operation = 2
-mesh = SubResource( 8 )
+mesh = SubResource( 11 )
 
 [node name="StaticBody_CSGMesh" type="StaticBody" parent="Architecture/CSGMesh"]
 transform = Transform( 2.76176, 0, 0, 0, 0.999998, 0, 0, 0, 2.06133, -0.871276, 0.208401, 0.10335 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Architecture/CSGMesh/StaticBody_CSGMesh"]
 transform = Transform( 0.0997537, 0, 0, 0, 0.340497, 0, 0, 0, 0.43216, 0, -0.426876, 0 )
-shape = SubResource( 9 )
+shape = SubResource( 13 )
 
 [node name="CollisionShape2" type="CollisionShape" parent="Architecture/CSGMesh/StaticBody_CSGMesh"]
 transform = Transform( 0.0840755, 0, 0, 0, 0.340497, 0, 0, 0, 0.43216, 0.61996, -0.426876, 0.0041256 )
-shape = SubResource( 9 )
+shape = SubResource( 13 )
 
 [node name="CollisionShape3" type="CollisionShape" parent="Architecture/CSGMesh/StaticBody_CSGMesh"]
 transform = Transform( 0.272621, 0, 0, 0, 0.340497, 0, 0, 0, 0.43216, 0.31065, -0.426876, -0.729197 )
-shape = SubResource( 9 )
+shape = SubResource( 13 )
+
+[node name="CSGMesh2" type="CSGMesh" parent="Architecture"]
+transform = Transform( -0.706019, -1.91585, 8.70869, 0, 4.89182, 3.42282, -11.8417, 0.114225, -0.519222, -15.9451, -9.19616, -0.252388 )
+mesh = SubResource( 11 )
+material = SubResource( 12 )
+
+[node name="StaticBody_CSGMesh" type="StaticBody" parent="Architecture/CSGMesh2"]
+transform = Transform( 2.76176, 0, -1.49012e-08, -1.49012e-08, 0.999998, -1.38767e-07, -1.49012e-08, 1.83936e-08, 2.06133, -0.871276, 0.208401, 0.10335 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Architecture/CSGMesh2/StaticBody_CSGMesh"]
+transform = Transform( 0.198642, 6.51926e-09, -5.58794e-09, -1.86265e-09, 0.340497, -7.0082e-08, 3.72529e-09, -2.82307e-09, 0.43216, 0.280403, 0.475139, 0 )
+shape = SubResource( 13 )
 
 [node name="CSGBox" type="CSGBox" parent="Architecture"]
 transform = Transform( 2.88407, 0, 0, 0, 1.58978, 0, 0, 0, 0.568354, 3.26511, 2.19058, -7.82005 )
 use_collision = true
 height = 6.65139
 depth = 11.1384
+material = SubResource( 14 )
 
 [node name="CSGBox2" type="CSGBox" parent="Architecture/CSGBox"]
 transform = Transform( 0.672801, 0, 0, 0, 0.866676, 0, 0, 0, 0.527355, -0.00145996, 0.26382, 3.84129 )
 operation = 2
 height = 4.87946
 depth = 11.1384
+material = SubResource( 15 )
 
 [node name="sandbox" type="MeshInstance" parent="Architecture"]
-transform = Transform( 1, 0, 0, 0, -0.999917, 0.0129025, 0, -0.0129025, -0.999917, 1.27707, -1.16198, 1.63215 )
+transform = Transform( 1, 0, 0, 0, -0.999917, 0.0129025, 0, -0.0129025, -0.999917, 1.27256, -1.16198, 1.76023 )
 use_in_baked_light = true
 mesh = ExtResource( 1 )
 material/0 = null
@@ -259,7 +281,7 @@ material/0 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="Architecture/sandbox/StaticBody_sandbox"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00112057, 0.008407, -0.00011611 )
-shape = SubResource( 10 )
+shape = SubResource( 16 )
 
 [node name="sandbox2_bigramp" type="MeshInstance" parent="Architecture"]
 transform = Transform( 1, 0, 0, 0, 0.0275537, -0.99962, 0, 0.99962, 0.0275537, 1.30341, -9.36003, 9.98945 )
@@ -268,17 +290,17 @@ mesh = ExtResource( 1 )
 material/0 = null
 
 [node name="StaticBody_sandbox2" type="StaticBody" parent="Architecture/sandbox2_bigramp"]
-physics_material_override = SubResource( 11 )
+physics_material_override = SubResource( 17 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Architecture/sandbox2_bigramp/StaticBody_sandbox2"]
-shape = SubResource( 10 )
+shape = SubResource( 16 )
 
 [node name="CSGCombiner" type="CSGCombiner" parent="Architecture/sandbox2_bigramp"]
 transform = Transform( -0.0594265, 0.998174, 0.205749, 0.0352428, 0.0129724, -18.9287, -0.997609, -0.0590019, -0.680955, 13.2492, -18.7095, -16.0208 )
 use_collision = true
 
 [node name="CSGPolygon" type="CSGPolygon" parent="Architecture/sandbox2_bigramp/CSGCombiner"]
-transform = Transform( 0.999998, -6.90852e-08, 4.47035e-08, -2.06055e-08, 0.999999, -1.49012e-08, -2.03727e-10, -1.74623e-10, 1, 0, 0, 0 )
+transform = Transform( 0.999998, -7.65067e-08, 4.47035e-08, -3.55358e-08, 0.999999, 1.49012e-08, -2.03727e-10, -1.16415e-10, 1, 0, 0, 0 )
 use_collision = true
 polygon = PoolVector2Array( -5.81908, 7.53638, -6.98714, -5.16268, -3.89938, 0.281283, -2.9079, 7.92116 )
 
@@ -288,7 +310,7 @@ use_collision = true
 polygon = PoolVector2Array( -5.81908, 7.53638, -6.66608, -1.7881, -3.57963, -0.494902, -2.9079, 7.92116 )
 
 [node name="CSGPolygon3" type="CSGPolygon" parent="Architecture/sandbox2_bigramp/CSGCombiner"]
-transform = Transform( 0.0555071, 0.350334, -2.26758e-05, -0.496493, 0.0391667, 0.000598326, 0.000854572, -4.44629e-05, 0.349078, -2.78438, 4.51567, -0.113728 )
+transform = Transform( 0.0555071, 0.350334, -2.26833e-05, -0.496493, 0.0391667, 0.000598326, 0.000854572, -4.44629e-05, 0.349078, -2.78438, 4.51567, -0.113728 )
 operation = 2
 use_collision = true
 polygon = PoolVector2Array( -5.81908, 7.53638, -6.66608, -1.7881, -0.522678, -2.16677, 4.23983, -2.19366 )
@@ -309,7 +331,7 @@ material/0 = null
 [node name="StaticBody_sandbox3" type="StaticBody" parent="Architecture/sandbox3"]
 
 [node name="CollisionShape" type="CollisionShape" parent="Architecture/sandbox3/StaticBody_sandbox3"]
-shape = SubResource( 10 )
+shape = SubResource( 16 )
 disabled = true
 
 [node name="Colliders" type="Node" parent="."]
@@ -319,19 +341,19 @@ transform = Transform( -0.166335, 0, 5.77505, 0, 5.37581, 0, -13.7676, 0, -0.069
 
 [node name="CollisionShape" type="CollisionShape" parent="Colliders/StaticBody2"]
 transform = Transform( 0.1, 0, 1.86265e-09, 0, 0.34, 0, -2.32831e-10, 0, 1.812, -0.453262, -0.426876, 1.59026 )
-shape = SubResource( 9 )
+shape = SubResource( 13 )
 
 [node name="CollisionShape2" type="CollisionShape" parent="Colliders/StaticBody2"]
 transform = Transform( 0.0841175, 0, -0.0074973, 0, 0.340497, 0, -0.00828959, 0, 1.91154, 1.02446, -0.692483, 1.68226 )
-shape = SubResource( 9 )
+shape = SubResource( 13 )
 
 [node name="CollisionShape3" type="CollisionShape" parent="Colliders/StaticBody2"]
 transform = Transform( 0.825029, 0, 0.00502647, 0, 0.340497, 0, 0.0180211, 0, 0.316152, 0.307852, -0.665118, -0.177025 )
-shape = SubResource( 9 )
+shape = SubResource( 13 )
 
 [node name="CollisionShape4" type="CollisionShape" parent="Colliders/StaticBody2"]
 transform = Transform( 0.825175, 0, -0.00300011, 0, 0.340497, 0, -0.010756, 0, 1.89997, 0.297226, -1.46701, 1.91969 )
-shape = SubResource( 9 )
+shape = SubResource( 13 )
 
 [node name="Targets" type="Node" parent="."]
 
@@ -339,67 +361,59 @@ shape = SubResource( 9 )
 "handable",
 ]]
 transform = Transform( 0.571347, -0.000215892, 0.00064154, 0.000214272, 0.571345, 0.00143531, -0.000642083, -0.00143507, 0.571345, 2.69419, 2.39755, -0.590016 )
-mesh = SubResource( 12 )
-material/0 = SubResource( 13 )
-script = ExtResource( 8 )
-rotationSpeed = 3.0
+mesh = SubResource( 18 )
+material/0 = SubResource( 19 )
 
 [node name="StaticBody" type="StaticBody" parent="Targets/Hot Yon Target"]
 
 [node name="CollisionShape" type="CollisionShape" parent="Targets/Hot Yon Target/StaticBody"]
 transform = Transform( 1, -2.74895e-10, -2.32831e-10, 5.77529e-11, 0.999999, -4.65661e-10, 8.14907e-10, -4.65661e-10, 1, -0.00317287, -5.72205e-05, 0.0237362 )
-shape = SubResource( 14 )
+shape = SubResource( 20 )
 
 [node name="Yozo Hooze Target" type="MeshInstance" parent="Targets" groups=[
 "pushable",
 ]]
-transform = Transform( 0.516435, 9.54177e-05, -0.244402, -0.00065049, 0.571345, -0.00115148, 0.244401, 0.00131907, 0.516434, 2.69641, 2.39755, 3.09211 )
-mesh = SubResource( 12 )
+transform = Transform( 0.516435, 9.54177e-05, -0.244402, -0.00065049, 0.571345, -0.00115148, 0.244401, 0.00131907, 0.516434, 2.75291, 2.39784, 2.96386 )
+mesh = SubResource( 18 )
 skeleton = NodePath("")
-material/0 = SubResource( 15 )
+material/0 = SubResource( 21 )
 
 [node name="StaticBody" type="StaticBody" parent="Targets/Yozo Hooze Target"]
 transform = Transform( 1, 0, 2.98023e-08, -1.16415e-10, 1, -2.32831e-10, -2.98023e-08, 0, 1, 0, 0, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Targets/Yozo Hooze Target/StaticBody"]
 transform = Transform( 1, 0, 0, 0, 1, 2.32831e-10, -2.98023e-08, -2.32831e-10, 1, 0, 0, 0 )
-shape = SubResource( 14 )
+shape = SubResource( 20 )
 
 [node name="Respawn" type="Area" parent="."]
-transform = Transform( 23.2098, 0, 0, 0, 5.90912, 0, 0, 0, 27.2881, 6.73545, -15.578, -14.7321 )
-script = ExtResource( 14 )
+transform = Transform( 76.6296, 0, 0, 0, 5.90912, 0, 0, 0, 116.317, 6.73545, -15.578, -14.7321 )
+input_ray_pickable = false
+script = ExtResource( 2 )
 
 [node name="Respawn Node" type="Spatial" parent="Respawn"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.282425, 3.87912, 0.570331 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Respawn"]
-shape = SubResource( 16 )
+shape = SubResource( 22 )
 
-[node name="Dialog System" parent="." instance=ExtResource( 16 )]
-transform = Transform( 1.91246, 0, 0, 0, 3.02633, 0, 0, 0, 1.91246, -5.70189, 1.72102, 2.28446 )
-dialogDict = {
-
-}
-
-[node name="MeshInstance" parent="Dialog System/Text Zone Control 1/Offset" index="0"]
-material/0 = SubResource( 22 )
-
-[node name="Level Load" type="Area" parent="."]
-transform = Transform( 8.34393, 0, 0, 0, 5.90913, 0, 0, 0, 8.34393, 23.9911, 5.15118, -0.645943 )
+[node name="Level Load (Dsabled)" type="Area" parent="."]
+transform = Transform( 8.34393, 0, 0, 0, 5.90913, 0, 0, 0, 8.34393, 21.4627, 5.15118, -0.645943 )
 input_ray_pickable = false
 monitorable = false
+collision_layer = 3
 collision_mask = 0
-script = ExtResource( 11 )
-sceneThang = ExtResource( 12 )
+script = ExtResource( 10 )
+sceneThang = ExtResource( 4 )
 
-[node name="CollisionShape" type="CollisionShape" parent="Level Load"]
+[node name="CollisionShape" type="CollisionShape" parent="Level Load (Dsabled)"]
 transform = Transform( 0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, 0, 0, 0 )
-shape = SubResource( 17 )
+shape = SubResource( 23 )
+disabled = true
 
 [node name="Sword" type="Node" parent="."]
 script = ExtResource( 9 )
 
-[node name="FXAA" parent="." instance=ExtResource( 10 )]
+[node name="FXAA" parent="." instance=ExtResource( 6 )]
 
 [node name="Elevator1" type="Spatial" parent="."]
 
@@ -407,7 +421,7 @@ script = ExtResource( 9 )
 "platform",
 ]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.565, -0.952, -16.7567 )
-script = ExtResource( 13 )
+script = ExtResource( 11 )
 nodeA = NodePath("../Point A")
 nodeB = NodePath("../Point B")
 
@@ -415,14 +429,13 @@ nodeB = NodePath("../Point B")
 "platform",
 ]]
 transform = Transform( 2.30422, 0, 0, 0, 0.258002, 0, 0, 0, 2.2753, -0.000191689, -0.00023973, -0.000171661 )
-mesh = SubResource( 18 )
+mesh = SubResource( 26 )
 material/0 = null
 
 [node name="StaticBody" type="StaticBody" parent="Elevator1/Carrier1/Moving Platform"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.61353, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Elevator1/Carrier1/Moving Platform/StaticBody"]
-shape = SubResource( 19 )
+shape = SubResource( 27 )
 
 [node name="Point A" type="Spatial" parent="Elevator1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.579, -0.952, -11.2503 )
@@ -436,22 +449,21 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.579, -0.952, -17.1077 )
 "platform",
 ]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13.4709, -2.13875, -12.5377 )
-script = ExtResource( 13 )
+script = ExtResource( 11 )
 nodeA = NodePath("../Point A")
 nodeB = NodePath("../Point B")
 
 [node name="Moving Platform 2" type="MeshInstance" parent="Elevator2/Carrier2" groups=[
 "platform",
 ]]
-transform = Transform( 2.30422, 0, 0, 0, 0.258002, 0, 0, 0, 2.2753, -0.000191689, -0.000239849, -0.000171661 )
-mesh = SubResource( 18 )
+transform = Transform( 2.30422, 0, 0, 0, 0.258002, 0, 0, 0, 2.2753, -0.000191689, -0.00023973, -0.000171661 )
+mesh = SubResource( 26 )
 material/0 = null
 
 [node name="StaticBody" type="StaticBody" parent="Elevator2/Carrier2/Moving Platform 2"]
 
 [node name="CollisionShape" type="CollisionShape" parent="Elevator2/Carrier2/Moving Platform 2/StaticBody"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.58431, 0 )
-shape = SubResource( 19 )
+shape = SubResource( 27 )
 
 [node name="Point A" type="Spatial" parent="Elevator2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13.4709, -2.13875, -12.5377 )
@@ -461,13 +473,59 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13.4709, 3.11803, -12.5377 )
 
 [node name="Study In Purple" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -14.2429, 1.87408, -1.44184 )
-mesh = SubResource( 20 )
-material/0 = ExtResource( 15 )
+mesh = SubResource( 28 )
+material/0 = ExtResource( 13 )
 
 [node name="OmniLight2" type="OmniLight" parent="."]
-transform = Transform( 0.457783, -0.103931, 0.882968, 0, 0.993144, 0.116899, -0.889064, -0.0535146, 0.454645, -14.355, 3.04191, 1.67605 )
+transform = Transform( 0.457783, -0.103931, 0.882968, 0, 0.993144, 0.116899, -0.889064, -0.0535145, 0.454644, -15.1821, 4.05751, 0.520246 )
+
+[node name="PlayerV2" parent="." instance=ExtResource( 5 )]
+transform = Transform( -0.74694, 0, 0.664892, 0, 1, 0, -0.664892, 0, -0.74694, 0.44454, 2.14401, 0.630013 )
+collision_layer = 1
+collision_mask = 2147483649
+head_path = NodePath("../PlayerV2/Head")
+cam_path = NodePath("../PlayerV2/Head/Camera")
+walk_speed = 6
+sprint_speed = 10
+acceleration = 3
+deacceleration = 15
+air_control = 0.75
+
+[node name="RayShape" parent="PlayerV2" index="2"]
+visible = false
+
+[node name="RayShape2" parent="PlayerV2" index="3"]
+visible = false
+
+[node name="RayShape3" parent="PlayerV2" index="4"]
+visible = false
+
+[node name="RayShape4" parent="PlayerV2" index="5"]
+visible = false
+
+[node name="Collision" parent="PlayerV2" index="6"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+
+[node name="playerfeet" parent="PlayerV2" index="8"]
+cast_to = Vector3( 0, -4, 0 )
+
+[node name="Area" parent="." instance=ExtResource( 14 )]
+transform = Transform( -0.554013, 0, 1.87263, 0, 4.31809, 0, -2.67194, 0, -0.38828, -22.7477, 5.59742, 8.27235 )
+
+[node name="Dialog System" parent="." instance=ExtResource( 7 )]
+transform = Transform( -0.27155, 0, 1.89308, 0, 3.02633, 0, -1.89308, 0, -0.27155, -7.12251, 1.61661, 4.60716 )
+dialogDict = {
+
+}
+
+[node name="MeshInstance" parent="Dialog System/Text Zone Control 1/Offset" index="0"]
+material/0 = SubResource( 30 )
 [connection signal="body_entered" from="Respawn" to="Respawn" method="_on_Respawn_body_entered"]
-[connection signal="body_entered" from="Level Load" to="Level Load" method="_on_Area_body_entered"]
-[connection signal="body_exited" from="Level Load" to="Level Load" method="_on_Area_body_exited"]
+[connection signal="body_entered" from="Level Load (Dsabled)" to="Level Load (Dsabled)" method="_on_Area_body_entered"]
+[connection signal="body_exited" from="Level Load (Dsabled)" to="Level Load (Dsabled)" method="_on_Area_body_exited"]
+
+[editable path="PlayerV2"]
+
+[editable path="Area"]
 
 [editable path="Dialog System"]
