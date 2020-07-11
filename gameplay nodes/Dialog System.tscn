@@ -43,6 +43,9 @@ script = ExtResource( 3 )
 [node name="Text Zone Control 1" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.59568, 0, 0, 0, 1, 0, 0, 0 )
 script = ExtResource( 2 )
+active = true
+textLabelPath = NodePath("Offset/MeshInstance/Viewport/RichTextLabel_1")
+dynamicTime = 0.15
 
 [node name="Offset" type="Spatial" parent="Text Zone Control 1"]
 
@@ -56,8 +59,9 @@ size = Vector2( 450, 130 )
 transparent_bg = true
 render_target_v_flip = true
 
-[node name="RichTextLabel" parent="Text Zone Control 1/Offset/MeshInstance/Viewport" instance=ExtResource( 4 )]
-script = ExtResource( 2 )
+[node name="RichTextLabel_1" parent="Text Zone Control 1/Offset/MeshInstance/Viewport" instance=ExtResource( 4 )]
+bbcode_enabled = true
+text = "asdfasdf"
 
 [node name="Text Zone Control 2" type="Spatial" parent="."]
 visible = false

@@ -1,19 +1,20 @@
 {
     "BEGIN": [
-        "10",
-        "Photographer",
-        "Ah, you finally arrive with my pizza, {YOURNAME}.",
-        "13"
-    ],
-
-    "BEGIN_FINALE":[
-        "10",
-        "Photographer",
+        "10 [color=blue]is[/color] a [color=red]number[/color] I love.",
+        "Photographer was once a man who didn't know what was happening.  But know they do.",
         "{YOURNAME}.  About that situation back at my studio...",
         "My business insurance is going through the roof thanks to you.",
         "And your... pizza.  Caetano <i>never</i> made pizza like that.  ",
-        "END"
+        "END END END END END"
+    ],
 
+    "BEGIN_FINALE":[
+        "10 is a number I love.",
+        "Photographer was once a man who didn't know what was happening.  But know they do.",
+        "{YOURNAME}.  About that situation back at my studio...",
+        "My business insurance is going through the roof thanks to you.",
+        "And your... pizza.  Caetano <i>never</i> made pizza like that.  ",
+        "END END END END END"
     ],
 
     "Pizza 5 - Gareon's Pizza":[

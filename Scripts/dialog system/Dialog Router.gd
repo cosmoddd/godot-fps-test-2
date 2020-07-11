@@ -5,10 +5,14 @@ var t = 0
 var dialogEnding = false
 var personSpeaking = 1
 
+var textBuilder1
+var textBuilder2
+var textBuilder3
+
 func _ready():
 	dContainer = get_parent()
+	textBuilder1 = $"../Text Zone Control 1"
 
-	
 func _process(delta):
 	t += delta
 	if (Input.is_action_just_pressed("mouseClick")&&
@@ -88,7 +92,9 @@ func _EndDialog():
 	pass
 	
 func _PersonSpeaks():
-	$"../Text Zone Control 1/Offset/MeshInstance/Viewport/RichTextLabel".bbcode_text = dContainer.currentDialog
+	textBuilder1._BuildDialog(dContainer.currentDialog)
+	# textBuilder1.bbcode_text = dContainer.currentDialog
+	# $"../Text Zone Control 1/Offset/MeshInstance/Viewport/RichTextLabel_1".bbcode_text = dContainer.currentDialog
 #	_personSpeaking = 1
 	pass
 	# PersonSpeaks(dContainer.dialogSO.lastPersonSpeaking);  // THIS IS IT - ALL THIS FUCKIN CODE JUST SO A PERSON CAN BLAB IT UP
