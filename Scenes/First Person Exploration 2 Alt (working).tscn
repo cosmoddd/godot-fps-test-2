@@ -137,21 +137,21 @@ emission_on_uv2 = false
 
 [sub_resource type="BoxShape" id=23]
 
+[sub_resource type="CubeMesh" id=24]
+
+[sub_resource type="BoxShape" id=25]
+
 [sub_resource type="CubeMesh" id=26]
 
-[sub_resource type="BoxShape" id=27]
-
-[sub_resource type="CubeMesh" id=28]
-
-[sub_resource type="ViewportTexture" id=29]
+[sub_resource type="ViewportTexture" id=27]
 viewport_path = NodePath("Dialog System/Text Zone Control 1/Offset/MeshInstance/Viewport")
 
-[sub_resource type="SpatialMaterial" id=30]
+[sub_resource type="SpatialMaterial" id=28]
 resource_local_to_scene = true
 flags_transparent = true
 flags_unshaded = true
 flags_vertex_lighting = true
-albedo_texture = SubResource( 29 )
+albedo_texture = SubResource( 27 )
 
 [node name="SpatialZone" type="Spatial"]
 __meta__ = {
@@ -373,7 +373,7 @@ shape = SubResource( 20 )
 [node name="Yozo Hooze Target" type="MeshInstance" parent="Targets" groups=[
 "pushable",
 ]]
-transform = Transform( 0.516435, 9.54177e-05, -0.244402, -0.00065049, 0.571345, -0.00115148, 0.244401, 0.00131907, 0.516434, 2.75291, 2.39784, 2.96386 )
+transform = Transform( 0.516435, 9.54177e-05, -0.244402, -0.00065049, 0.571345, -0.00115148, 0.244401, 0.00131907, 0.516434, 4.63733, 2.39082, 5.87006 )
 mesh = SubResource( 18 )
 skeleton = NodePath("")
 material/0 = SubResource( 21 )
@@ -429,13 +429,13 @@ nodeB = NodePath("../Point B")
 "platform",
 ]]
 transform = Transform( 2.30422, 0, 0, 0, 0.258002, 0, 0, 0, 2.2753, -0.000191689, -0.00023973, -0.000171661 )
-mesh = SubResource( 26 )
+mesh = SubResource( 24 )
 material/0 = null
 
 [node name="StaticBody" type="StaticBody" parent="Elevator1/Carrier1/Moving Platform"]
 
 [node name="CollisionShape" type="CollisionShape" parent="Elevator1/Carrier1/Moving Platform/StaticBody"]
-shape = SubResource( 27 )
+shape = SubResource( 25 )
 
 [node name="Point A" type="Spatial" parent="Elevator1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.579, -0.952, -11.2503 )
@@ -457,13 +457,13 @@ nodeB = NodePath("../Point B")
 "platform",
 ]]
 transform = Transform( 2.30422, 0, 0, 0, 0.258002, 0, 0, 0, 2.2753, -0.000191689, -0.00023973, -0.000171661 )
-mesh = SubResource( 26 )
+mesh = SubResource( 24 )
 material/0 = null
 
 [node name="StaticBody" type="StaticBody" parent="Elevator2/Carrier2/Moving Platform 2"]
 
 [node name="CollisionShape" type="CollisionShape" parent="Elevator2/Carrier2/Moving Platform 2/StaticBody"]
-shape = SubResource( 27 )
+shape = SubResource( 25 )
 
 [node name="Point A" type="Spatial" parent="Elevator2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13.4709, -2.13875, -12.5377 )
@@ -473,7 +473,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13.4709, 3.11803, -12.5377 )
 
 [node name="Study In Purple" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -14.2429, 1.87408, -1.44184 )
-mesh = SubResource( 28 )
+mesh = SubResource( 26 )
 material/0 = ExtResource( 13 )
 
 [node name="OmniLight2" type="OmniLight" parent="."]
@@ -485,13 +485,18 @@ collision_layer = 1
 collision_mask = 2147483649
 head_path = NodePath("../PlayerV2/Head")
 cam_path = NodePath("../PlayerV2/Head/Camera")
+gravity = 60.0
 walk_speed = 6
 sprint_speed = 10
 acceleration = 3
 deacceleration = 15
 air_control = 0.75
 
-[node name="RayShape" parent="PlayerV2" index="2"]
+[node name="RayShapePrime" parent="PlayerV2" index="1"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0 )
+disabled = true
+
+[node name="RayShape0" parent="PlayerV2" index="2"]
 visible = false
 
 [node name="RayShape2" parent="PlayerV2" index="3"]
@@ -502,9 +507,6 @@ visible = false
 
 [node name="RayShape4" parent="PlayerV2" index="5"]
 visible = false
-
-[node name="Collision" parent="PlayerV2" index="6"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
 
 [node name="playerfeet" parent="PlayerV2" index="8"]
 cast_to = Vector3( 0, -4, 0 )
@@ -519,7 +521,7 @@ dialogDict = {
 }
 
 [node name="MeshInstance" parent="Dialog System/Text Zone Control 1/Offset" index="0"]
-material/0 = SubResource( 30 )
+material/0 = SubResource( 28 )
 [connection signal="body_entered" from="Respawn" to="Respawn" method="_on_Respawn_body_entered"]
 [connection signal="body_entered" from="Level Load (Dsabled)" to="Level Load (Dsabled)" method="_on_Area_body_entered"]
 [connection signal="body_exited" from="Level Load (Dsabled)" to="Level Load (Dsabled)" method="_on_Area_body_exited"]

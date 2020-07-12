@@ -32,6 +32,10 @@ var flying := false
 # Slopes
 export var floor_max_angle := 45.0
 export(float) var currentFloorAngle
+export(NodePath) var tweenerPath
+var tweener
+export(NodePath) var rayShapePath
+var rayShape
 # Platforms
 var root
 var onPlatform = false
@@ -47,6 +51,8 @@ var _snap := Vector3(0,-1,0)
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	cam.fov = FOV
+	tweener = get_node(tweenerPath)
+	rayShape = get_node(rayShapePath)
 	root = get_owner()
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame
@@ -180,12 +186,22 @@ func _walk(delta: float) -> void:
 			
 	pass
 
-
+#maybe this will work one day
 func _slope_helper():
 	# # get floor angle
-	# var n = $playerfeet.get_collision_normal()
-	# currentFloorAngle = rad2deg(acos(n.dot(Vector3(0,1,0))))
-	# print(currentFloorAngle)
+	print(rayShape.shape.length)
+	var n = $playerfeet.get_collision_normal()
+	currentFloorAngle = rad2deg(acos(n.dot(Vector3(0,1,0))))
+
+	if (velocity.length()-.5 > 1) && (currentFloorAngle > 1):
+		# print("On a slope and moving!!")
+		# rayShape.get
+		# tweener.interpolate_property(rayShape, "length", 1.6,2, .5, Tween.EASE_IN, Tween.EASE_OUT)
+		tweener.start()
+		pass
+	if (currentFloorAngle <= 1):
+		# tweener.interpolate_property(collision, "scale", Vector3(1,1,collision.scale.z),Vector3(1,1,1), .5, Tween.EASE_IN, Tween.EASE_OUT)
+		tweener.start();
 	pass
 
 ## DON'T USE FLY... WHY OH WHY?

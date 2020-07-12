@@ -4,17 +4,17 @@
 
 [sub_resource type="RayShape" id=1]
 margin = 0.001
-length = 1.54243
+length = 1.83363
 
 [sub_resource type="CapsuleShape" id=2]
 margin = 0.001
 radius = 0.55938
-height = 1.94185
+height = 2.19829
 
 [node name="Player WORKING" type="KinematicBody" groups=[
 "Player",
 ]]
-collision_layer = 2
+collision_layer = 3
 collision_mask = 3
 script = ExtResource( 1 )
 mouse_sensitivity = 6.0
@@ -23,6 +23,8 @@ cam_path = NodePath("../Player WORKING/Head/Camera")
 FOV = 60.0
 walk_speed = 7
 sprint_speed = 12
+tweenerPath = NodePath("TweenCollision")
+rayShapePath = NodePath("RayShapePrime")
 
 [node name="RayShapeHelpers" type="Node" parent="."]
 
@@ -65,3 +67,5 @@ far = 250.0
 enabled = true
 cast_to = Vector3( 0, -3, 0 )
 collision_mask = 3
+
+[node name="TweenCollision" type="Tween" parent="."]
